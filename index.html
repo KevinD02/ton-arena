@@ -8,10 +8,53 @@
 
 <title>TON Arena</title>
 
+<!-- Fuente Inter desde Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,700;14..32,800&display=swap" rel="stylesheet">
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+/* ===== VARIABLES (Tema Oscuro por defecto) ===== */
+:root {
+    --bg-primary: #070b14;
+    --bg-card: rgba(255, 255, 255, 0.04);
+    --bg-card-solid: #1a1f2a;
+    --bg-elevated: #191e28;
+    --bg-input: #1b202b;
+    --border-color: #2a3140;
+    --border-light: rgba(255, 255, 255, 0.08);
+    --text-primary: #ffffff;
+    --text-secondary: #858b99;
+    --text-muted: #747c8c;
+    --text-accent: #4db5e8;
+    --shadow-3d: #0a0d14;
+    --gradient-brand: linear-gradient(135deg, #0098ea, #00c7f2);
+    --gradient-progress: linear-gradient(90deg, #0098ea, #00c7f2);
+    --glass-bg: rgba(255, 255, 255, 0.04);
+}
 
+/* ===== TEMA CLARO ===== */
+body.light-theme {
+    --bg-primary: #f0f2f6;
+    --bg-card: rgba(255, 255, 255, 0.8);
+    --bg-card-solid: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-input: #e8ebf0;
+    --border-color: #d0d5dd;
+    --border-light: rgba(0, 0, 0, 0.08);
+    --text-primary: #1a1f2a;
+    --text-secondary: #5a6270;
+    --text-muted: #8a92a0;
+    --text-accent: #0077be;
+    --shadow-3d: #b0b8c4;
+    --gradient-brand: linear-gradient(135deg, #0077be, #00a3d6);
+    --gradient-progress: linear-gradient(90deg, #0077be, #00a3d6);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+}
+
+/* ===== RESET Y BASE ===== */
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
@@ -19,9 +62,10 @@
 
 body {
     margin: 0;
-    background: #10131a;
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    transition: background 0.25s ease, color 0.25s ease;
 }
 
 button {
@@ -36,8 +80,7 @@ button {
     padding-bottom: 90px;
 }
 
-/* HEADER */
-
+/* ===== HEADER ===== */
 .header {
     padding: 20px 18px 12px;
     display: flex;
@@ -55,7 +98,7 @@ button {
     width: 43px;
     height: 43px;
     border-radius: 14px;
-    background: linear-gradient(135deg,#229ed9,#6366f1);
+    background: var(--gradient-brand);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,7 +111,7 @@ button {
 }
 
 .brand-subtitle {
-    color: #858b99;
+    color: var(--text-secondary);
     font-size: 11px;
     margin-top: 2px;
 }
@@ -83,23 +126,29 @@ button {
     height: 40px;
     border: 0;
     border-radius: 13px;
-    background: #1b202b;
-    color: white;
+    background: var(--bg-input);
+    color: var(--text-primary);
     font-size: 18px;
+    box-shadow: 0 4px 0 var(--shadow-3d);
+    transition: all 0.08s ease;
+    cursor: pointer;
 }
 
-/* PROFILE CARD */
+.icon-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 0 var(--shadow-3d);
+}
 
+/* ===== PROFILE CARD ===== */
 .profile-card {
     margin: 5px 16px 15px;
     padding: 16px;
-    border-radius: 20px;
-    background: linear-gradient(
-        135deg,
-        #1c2535,
-        #171b25
-    );
-    border: 1px solid #2a3140;
+    border-radius: 24px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-light);
+    transition: background 0.25s ease, border 0.25s ease;
 }
 
 .profile-top {
@@ -118,7 +167,7 @@ button {
     width: 52px;
     height: 52px;
     border-radius: 17px;
-    background: #293143;
+    background: var(--bg-input);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,7 +180,7 @@ button {
 }
 
 .level {
-    color: #9299a8;
+    color: var(--text-secondary);
     font-size: 12px;
     margin-top: 4px;
 }
@@ -141,7 +190,7 @@ button {
 }
 
 .balance-label {
-    color: #858b99;
+    color: var(--text-secondary);
     font-size: 11px;
 }
 
@@ -153,7 +202,7 @@ button {
 
 .progress {
     height: 5px;
-    background: #303747;
+    background: var(--bg-input);
     border-radius: 20px;
     margin-top: 14px;
     overflow: hidden;
@@ -162,18 +211,13 @@ button {
 .progress-bar {
     height: 100%;
     width: 35%;
-    background: linear-gradient(
-        90deg,
-        #229ed9,
-        #8b5cf6
-    );
+    background: var(--gradient-progress);
 }
 
-/* ONLINE */
-
+/* ===== ONLINE ===== */
 .online {
     margin: 0 18px 18px;
-    color: #9097a5;
+    color: var(--text-secondary);
     font-size: 12px;
 }
 
@@ -181,8 +225,7 @@ button {
     color: #38d996;
 }
 
-/* SECTION */
-
+/* ===== SECTION ===== */
 .section {
     padding: 0 18px;
     margin-top: 20px;
@@ -201,12 +244,12 @@ button {
 }
 
 .see-all {
-    color: #4db5e8;
+    color: var(--text-accent);
     font-size: 12px;
+    cursor: pointer;
 }
 
-/* QUICK ACTIONS */
-
+/* ===== QUICK ACTIONS ===== */
 .quick-actions {
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -214,11 +257,19 @@ button {
 }
 
 .quick {
-    background: #1a1f2a;
-    border: 1px solid #272e3b;
-    border-radius: 15px;
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
     padding: 13px 5px;
     text-align: center;
+    box-shadow: 0 5px 0 var(--shadow-3d);
+    transition: all 0.08s ease;
+    cursor: pointer;
+}
+
+.quick:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 0 var(--shadow-3d);
 }
 
 .quick-icon {
@@ -227,12 +278,11 @@ button {
 
 .quick-title {
     font-size: 11px;
-    color: #b4bac5;
+    color: var(--text-secondary);
     margin-top: 5px;
 }
 
-/* GAMES */
-
+/* ===== GAMES ===== */
 .games {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -241,21 +291,24 @@ button {
 
 .game {
     min-height: 145px;
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 16px;
     position: relative;
     overflow: hidden;
-    border: 1px solid #2c3442;
-    background: linear-gradient(
-        145deg,
-        #202838,
-        #171c26
-    );
-    transition: transform .15s;
+    border: 1px solid var(--border-color);
+    background: linear-gradient(145deg, #202838, #171c26);
+    box-shadow: 0 8px 0 var(--shadow-3d);
+    transition: all 0.08s ease;
+    cursor: pointer;
+}
+
+body.light-theme .game {
+    background: linear-gradient(145deg, #f5f7fa, #e8ebf0);
 }
 
 .game:active {
-    transform: scale(.97);
+    transform: scale(0.95);
+    box-shadow: 0 2px 0 var(--shadow-3d);
 }
 
 .game-icon {
@@ -270,7 +323,7 @@ button {
 
 .game-description {
     font-size: 10px;
-    color: #8d95a5;
+    color: var(--text-secondary);
     margin-top: 4px;
 }
 
@@ -289,8 +342,7 @@ button {
     color: #687386;
 }
 
-/* CATEGORIES */
-
+/* ===== CATEGORIES ===== */
 .categories {
     display: flex;
     gap: 8px;
@@ -306,10 +358,11 @@ button {
     white-space: nowrap;
     padding: 9px 13px;
     border-radius: 12px;
-    background: #1b202b;
-    color: #9da4b2;
-    border: 1px solid #2b3240;
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
     font-size: 11px;
+    cursor: pointer;
 }
 
 .category.active {
@@ -318,12 +371,17 @@ button {
     border-color: #285e7e;
 }
 
-/* ACTIVITY */
+body.light-theme .category.active {
+    background: #d4e6f7;
+    color: #0077be;
+    border-color: #0077be;
+}
 
+/* ===== ACTIVITY ===== */
 .activity {
-    background: #191e28;
-    border-radius: 18px;
-    border: 1px solid #292f3c;
+    background: var(--bg-elevated);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
     overflow: hidden;
 }
 
@@ -332,7 +390,7 @@ button {
     display: flex;
     align-items: center;
     gap: 11px;
-    border-bottom: 1px solid #292f3c;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .activity-row:last-child {
@@ -342,7 +400,7 @@ button {
 .activity-avatar {
     width: 38px;
     height: 38px;
-    background: #2a3241;
+    background: var(--bg-input);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -359,7 +417,7 @@ button {
 }
 
 .activity-info {
-    color: #7f8796;
+    color: var(--text-secondary);
     font-size: 10px;
     margin-top: 3px;
 }
@@ -369,29 +427,30 @@ button {
     color: #46d39b;
 }
 
-/* BOTTOM NAV */
-
+/* ===== BOTTOM NAV ===== */
 .bottom {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     height: 70px;
-    background: rgba(16,19,26,.97);
-    border-top: 1px solid #292f3b;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
     display: flex;
     justify-content: space-around;
     align-items: center;
     z-index: 100;
     max-width: 600px;
     margin: auto;
+    transition: background 0.25s ease, border 0.25s ease;
 }
 
 .nav {
     width: 25%;
     text-align: center;
-    color: #747c8c;
+    color: var(--text-muted);
     font-size: 10px;
+    cursor: pointer;
 }
 
 .nav-icon {
@@ -401,11 +460,10 @@ button {
 }
 
 .nav.active {
-    color: #4db5e8;
+    color: var(--text-accent);
 }
 
-/* PAGE */
-
+/* ===== PAGES ===== */
 .page {
     display: none;
 }
@@ -414,12 +472,11 @@ button {
     display: block;
 }
 
-/* RANKING */
-
+/* ===== RANKING ===== */
 .rank-card {
-    background: #191e28;
-    border: 1px solid #292f3c;
-    border-radius: 18px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
     overflow: hidden;
 }
 
@@ -427,21 +484,25 @@ button {
     display: flex;
     align-items: center;
     padding: 14px;
-    border-bottom: 1px solid #292f3c;
+    border-bottom: 1px solid var(--border-color);
     gap: 12px;
+}
+
+.rank-row:last-child {
+    border-bottom: none;
 }
 
 .rank-number {
     width: 25px;
     text-align: center;
     font-weight: 800;
-    color: #8d95a5;
+    color: var(--text-secondary);
 }
 
 .rank-avatar {
     width: 42px;
     height: 42px;
-    background: #2a3241;
+    background: var(--bg-input);
     border-radius: 13px;
     display: flex;
     align-items: center;
@@ -458,7 +519,7 @@ button {
 }
 
 .rank-xp {
-    color: #808898;
+    color: var(--text-secondary);
     font-size: 10px;
     margin-top: 3px;
 }
@@ -468,8 +529,7 @@ button {
     font-size: 12px;
 }
 
-/* PROFILE PAGE */
-
+/* ===== PROFILE PAGE ===== */
 .big-profile {
     text-align: center;
     padding: 20px;
@@ -479,8 +539,8 @@ button {
     width: 85px;
     height: 85px;
     margin: auto;
-    border-radius: 25px;
-    background: linear-gradient(135deg,#26364c,#29344b);
+    border-radius: 28px;
+    background: var(--bg-input);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -501,9 +561,9 @@ button {
 }
 
 .stat {
-    background: #1a1f29;
-    border: 1px solid #292f3b;
-    border-radius: 15px;
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
     padding: 13px 5px;
 }
 
@@ -513,18 +573,17 @@ button {
 }
 
 .stat-label {
-    color: #7f8796;
+    color: var(--text-secondary);
     font-size: 9px;
     margin-top: 4px;
 }
 
-/* FRIENDS */
-
+/* ===== FRIENDS ===== */
 .friend {
-    background: #191e28;
-    border: 1px solid #292f3c;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
     padding: 13px;
-    border-radius: 16px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     gap: 11px;
@@ -534,7 +593,7 @@ button {
 .friend-avatar {
     width: 44px;
     height: 44px;
-    background: #293242;
+    background: var(--bg-input);
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -560,53 +619,228 @@ button {
     background: #203d52;
     border: 0;
     color: #5bc2ef;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 8px 10px;
     font-size: 10px;
     font-weight: bold;
+    box-shadow: 0 4px 0 #0f1f2b;
+    transition: all 0.08s ease;
+    cursor: pointer;
 }
 
-/* TOAST */
+.challenge:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 0 #0f1f2b;
+}
 
+body.light-theme .challenge {
+    background: #d4e6f7;
+    color: #0077be;
+    box-shadow: 0 4px 0 #b0c4d8;
+}
+
+/* ===== SETTINGS MODAL ===== */
+.settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 200;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.settings-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.settings-sheet {
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
+    background: var(--bg-primary);
+    border-radius: 28px 28px 0 0;
+    padding: 24px 20px 30px;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    overflow-y: auto;
+    border-top: 1px solid var(--border-color);
+}
+
+.settings-overlay.open .settings-sheet {
+    transform: translateY(0);
+}
+
+.settings-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--text-muted);
+    border-radius: 20px;
+    margin: 0 auto 20px;
+}
+
+.settings-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.settings-group {
+    margin-bottom: 22px;
+}
+
+.settings-group-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-row:last-child {
+    border-bottom: none;
+}
+
+.settings-row-label {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* ===== SELECTOR DE IDIOMAS (Grid 4 columnas) ===== */
+.lang-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.lang-btn {
+    padding: 8px 4px;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-card-solid);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: 0 2px 0 var(--shadow-3d);
+}
+
+.lang-btn:active {
+    transform: scale(0.95);
+}
+
+.lang-btn.active {
+    border-color: #0098ea;
+    background: rgba(0, 152, 234, 0.15);
+    color: #0098ea;
+    box-shadow: 0 2px 0 #0098ea;
+}
+
+body.light-theme .lang-btn.active {
+    background: rgba(0, 119, 190, 0.12);
+    border-color: #0077be;
+    color: #0077be;
+    box-shadow: 0 2px 0 #0077be;
+}
+
+/* Toggle Switch */
+.toggle {
+    width: 48px;
+    height: 28px;
+    background: #3a4050;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+}
+
+body.light-theme .toggle {
+    background: #c0c8d4;
+}
+
+.toggle.active {
+    background: #0098ea;
+}
+
+.toggle::after {
+    content: '';
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.toggle.active::after {
+    transform: translateX(20px);
+}
+
+/* ===== TOAST ===== */
 .toast {
     position: fixed;
     left: 50%;
     bottom: 85px;
     transform: translateX(-50%);
-    background: #242b38;
-    color: white;
+    background: var(--bg-card-solid);
+    color: var(--text-primary);
     padding: 12px 18px;
-    border-radius: 13px;
+    border-radius: 16px;
     font-size: 12px;
     opacity: 0;
     pointer-events: none;
     transition: .25s;
     z-index: 300;
     white-space: nowrap;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 .toast.show {
     opacity: 1;
 }
 
-/* RESPONSIVE */
-
+/* ===== RESPONSIVE ===== */
 @media(max-width:360px) {
-
     .games {
         gap: 8px;
     }
-
     .game {
         padding: 12px;
     }
-
     .game-icon {
         font-size: 38px;
     }
-
+    .lang-group {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
-
 </style>
 </head>
 
@@ -615,858 +849,632 @@ button {
 <div class="app">
 
 <!-- ================= HOME ================= -->
-
 <div id="homePage" class="page active">
 
     <div class="header">
-
         <div class="brand">
-
             <div class="logo">🏆</div>
-
             <div>
-                <div class="brand-title">TON Arena</div>
-                <div class="brand-subtitle">
-                    Play • Chat • Compete
-                </div>
+                <div class="brand-title" data-i18n="app_title">TON Arena</div>
+                <div class="brand-subtitle" data-i18n="app_subtitle">Play • Chat • Compete</div>
             </div>
-
         </div>
-
         <div class="header-icons">
-
-            <button class="icon-button"
-                    onclick="showMessage('🔔 No tienes nuevas notificaciones')">
+            <button class="icon-button" onclick="showMessage(translations[currentLang].notifications_empty)">
                 🔔
             </button>
-
-            <button class="icon-button"
-                    onclick="showMessage('🔍 Búsqueda próximamente')">
-                🔍
+            <button class="icon-button" onclick="openSettings()">
+                ⚙️
             </button>
-
         </div>
-
     </div>
-
 
     <div class="profile-card">
-
         <div class="profile-top">
-
             <div class="profile-left">
-
-                <div class="avatar">
-                    👤
-                </div>
-
+                <div class="avatar">👤</div>
                 <div>
-
-                    <div class="username"
-                         id="username">
-                        Jugador
-                    </div>
-
-                    <div class="level">
-                        Nivel 1 • 350 / 1000 XP
-                    </div>
-
+                    <div class="username" id="username">Jugador</div>
+                    <div class="level" id="levelDisplay" data-i18n="level_xp">Nivel 1 • 350 / 1000 XP</div>
                 </div>
-
             </div>
-
             <div class="balance">
-
-                <div class="balance-label">
-                    Monedas
-                </div>
-
-                <div class="balance-value">
-                    🪙 1,000
-                </div>
-
+                <div class="balance-label" data-i18n="coins">Monedas</div>
+                <div class="balance-value">🪙 1,000</div>
             </div>
-
         </div>
-
-        <div class="progress">
-
-            <div class="progress-bar"></div>
-
-        </div>
-
+        <div class="progress"><div class="progress-bar"></div></div>
     </div>
-
 
     <div class="online">
-        🟢 <span>1,284 jugadores</span> conectados ahora
+        🟢 <span id="onlineCount">1,284</span> <span data-i18n="online_players">jugadores conectados ahora</span>
     </div>
 
-
     <div class="section">
-
         <div class="section-header">
-
-            <div class="section-title">
-                ⚡ Jugar
-            </div>
-
+            <div class="section-title" data-i18n="quick_play_title">⚡ Jugar</div>
         </div>
-
         <div class="quick-actions">
-
-            <div class="quick"
-                 onclick="showMessage('🎮 Buscando una partida rápida...')">
+            <div class="quick" onclick="showMessage(translations[currentLang].quick_match)">
                 <div class="quick-icon">⚡</div>
-                <div class="quick-title">Partida rápida</div>
+                <div class="quick-title" data-i18n="quick_play">Partida rápida</div>
             </div>
-
-            <div class="quick"
-                 onclick="showMessage('👥 Crear partida próximamente')">
+            <div class="quick" onclick="showMessage(translations[currentLang].coming_soon)">
                 <div class="quick-icon">➕</div>
-                <div class="quick-title">Crear partida</div>
+                <div class="quick-title" data-i18n="create_game">Crear partida</div>
             </div>
-
-            <div class="quick"
-                 onclick="showMessage('🏆 Torneos próximamente')">
+            <div class="quick" onclick="showMessage(translations[currentLang].coming_soon)">
                 <div class="quick-icon">🏆</div>
-                <div class="quick-title">Torneos</div>
+                <div class="quick-title" data-i18n="tournaments">Torneos</div>
             </div>
-
         </div>
-
     </div>
 
-
     <div class="section">
-
         <div class="section-header">
-
-            <div class="section-title">
-                🎮 Juegos
-            </div>
-
-            <div class="see-all"
-                 onclick="showMessage('Biblioteca completa próximamente')">
-                Ver todos
-            </div>
-
+            <div class="section-title" data-i18n="games_title">🎮 Juegos</div>
+            <div class="see-all" onclick="showMessage(translations[currentLang].coming_soon)">Ver todos</div>
         </div>
-
-
         <div class="categories">
-
-            <div class="category active">Todos</div>
+            <div class="category active" data-i18n="all">Todos</div>
             <div class="category">🎯 Arcade</div>
             <div class="category">♟ Mesa</div>
             <div class="category">🃏 Cartas</div>
             <div class="category">⚽ Deportes</div>
             <div class="category">🧠 Estrategia</div>
-
         </div>
-
     </div>
 
-
     <div class="section">
-
         <div class="games">
-
-            <div class="game"
-                 onclick="openGame('🎱','Billar')">
-
+            <div class="game" onclick="openGame('🎱','Billar')">
                 <div class="game-icon">🎱</div>
-
-                <div class="game-name">
-                    Billar
-                </div>
-
-                <div class="game-description">
-                    8-Ball • 9-Ball
-                </div>
-
-                <div class="players">
-                    🟢 324 jugando
-                </div>
-
-                <div class="game-arrow">
-                    ›
-                </div>
-
+                <div class="game-name">Billar</div>
+                <div class="game-description">8-Ball • 9-Ball</div>
+                <div class="players">🟢 324 jugando</div>
+                <div class="game-arrow">›</div>
             </div>
-
-
-            <div class="game"
-                 onclick="openGame('🔴','4 en línea')">
-
+            <div class="game" onclick="openGame('🔴','4 en línea')">
                 <div class="game-icon">🔴</div>
-
-                <div class="game-name">
-                    4 en línea
-                </div>
-
-                <div class="game-description">
-                    1 vs 1
-                </div>
-
-                <div class="players">
-                    🟢 218 jugando
-                </div>
-
-                <div class="game-arrow">
-                    ›
-                </div>
-
+                <div class="game-name">4 en línea</div>
+                <div class="game-description">1 vs 1</div>
+                <div class="players">🟢 218 jugando</div>
+                <div class="game-arrow">›</div>
             </div>
-
-
-            <div class="game"
-                 onclick="openGame('♟️','Ajedrez')">
-
+            <div class="game" onclick="openGame('♟️','Ajedrez')">
                 <div class="game-icon">♟️</div>
-
-                <div class="game-name">
-                    Ajedrez
-                </div>
-
-                <div class="game-description">
-                    Estrategia 1 vs 1
-                </div>
-
-                <div class="players">
-                    🟢 147 jugando
-                </div>
-
-                <div class="game-arrow">
-                    ›
-                </div>
-
+                <div class="game-name">Ajedrez</div>
+                <div class="game-description">Estrategia 1 vs 1</div>
+                <div class="players">🟢 147 jugando</div>
+                <div class="game-arrow">›</div>
             </div>
-
-
-            <div class="game"
-                 onclick="openGame('🃏','Cartas')">
-
+            <div class="game" onclick="openGame('🃏','Cartas')">
                 <div class="game-icon">🃏</div>
-
-                <div class="game-name">
-                    Cartas
-                </div>
-
-                <div class="game-description">
-                    Próximamente
-                </div>
-
-                <div class="players">
-                    🟢 89 jugando
-                </div>
-
-                <div class="game-arrow">
-                    ›
-                </div>
-
+                <div class="game-name">Cartas</div>
+                <div class="game-description">Próximamente</div>
+                <div class="players">🟢 89 jugando</div>
+                <div class="game-arrow">›</div>
             </div>
-
         </div>
-
     </div>
-
 
     <div class="section">
-
         <div class="section-header">
-
-            <div class="section-title">
-                🔥 Actividad
-            </div>
-
+            <div class="section-title" data-i18n="activity_title">🔥 Actividad</div>
         </div>
-
         <div class="activity">
-
             <div class="activity-row">
-
                 <div class="activity-avatar">🎱</div>
-
                 <div class="activity-text">
-
-                    <div class="activity-name">
-                        Carlos ganó una partida
-                    </div>
-
-                    <div class="activity-info">
-                        Billar • hace 1 min
-                    </div>
-
+                    <div class="activity-name">Carlos ganó una partida</div>
+                    <div class="activity-info">Billar • hace 1 min</div>
                 </div>
-
-                <div class="activity-result">
-                    Victoria
-                </div>
-
+                <div class="activity-result">Victoria</div>
             </div>
-
-
             <div class="activity-row">
-
                 <div class="activity-avatar">🔴</div>
-
                 <div class="activity-text">
-
-                    <div class="activity-name">
-                        Ana retó a Pedro
-                    </div>
-
-                    <div class="activity-info">
-                        4 en línea • hace 3 min
-                    </div>
-
+                    <div class="activity-name">Ana retó a Pedro</div>
+                    <div class="activity-info">4 en línea • hace 3 min</div>
                 </div>
-
-                <div class="activity-result">
-                    ⚔️
-                </div>
-
+                <div class="activity-result">⚔️</div>
             </div>
-
         </div>
-
     </div>
-
 </div>
-
 
 <!-- ================= RANKING ================= -->
-
 <div id="rankingPage" class="page">
-
     <div class="header">
-
         <div>
-            <div class="brand-title">🏆 Ranking</div>
-            <div class="brand-subtitle">
-                Los mejores jugadores
-            </div>
+            <div class="brand-title" data-i18n="ranking_title">🏆 Ranking</div>
+            <div class="brand-subtitle" data-i18n="ranking_subtitle">Los mejores jugadores</div>
         </div>
-
     </div>
-
-
     <div class="section">
-
         <div class="categories">
-
-            <div class="category active">
-                Mundial
-            </div>
-
-            <div class="category">
-                Semanal
-            </div>
-
-            <div class="category">
-                Amigos
-            </div>
-
+            <div class="category active" data-i18n="global">Mundial</div>
+            <div class="category" data-i18n="weekly">Semanal</div>
+            <div class="category" data-i18n="friends">Amigos</div>
         </div>
-
     </div>
-
-
     <div class="section">
-
         <div class="rank-card">
-
-            <div class="rank-row">
-
-                <div class="rank-number">1</div>
-
-                <div class="rank-avatar">👑</div>
-
-                <div class="rank-user">
-
-                    <div class="rank-name">
-                        Alex
-                    </div>
-
-                    <div class="rank-xp">
-                        Nivel 42
-                    </div>
-
-                </div>
-
-                <div class="rank-score">
-                    98,420
-                </div>
-
-            </div>
-
-
-            <div class="rank-row">
-
-                <div class="rank-number">2</div>
-
-                <div class="rank-avatar">🔥</div>
-
-                <div class="rank-user">
-
-                    <div class="rank-name">
-                        Carlos
-                    </div>
-
-                    <div class="rank-xp">
-                        Nivel 39
-                    </div>
-
-                </div>
-
-                <div class="rank-score">
-                    91,280
-                </div>
-
-            </div>
-
-
-            <div class="rank-row">
-
-                <div class="rank-number">3</div>
-
-                <div class="rank-avatar">⚡</div>
-
-                <div class="rank-user">
-
-                    <div class="rank-name">
-                        Sofia
-                    </div>
-
-                    <div class="rank-xp">
-                        Nivel 37
-                    </div>
-
-                </div>
-
-                <div class="rank-score">
-                    87,640
-                </div>
-
-            </div>
-
-
-            <div class="rank-row">
-
-                <div class="rank-number">24</div>
-
-                <div class="rank-avatar">👤</div>
-
-                <div class="rank-user">
-
-                    <div class="rank-name">
-                        Tú
-                    </div>
-
-                    <div class="rank-xp">
-                        Nivel 1
-                    </div>
-
-                </div>
-
-                <div class="rank-score">
-                    1,000
-                </div>
-
-            </div>
-
+            <div class="rank-row"><div class="rank-number">1</div><div class="rank-avatar">👑</div><div class="rank-user"><div class="rank-name">Alex</div><div class="rank-xp">Nivel 42</div></div><div class="rank-score">98,420</div></div>
+            <div class="rank-row"><div class="rank-number">2</div><div class="rank-avatar">🔥</div><div class="rank-user"><div class="rank-name">Carlos</div><div class="rank-xp">Nivel 39</div></div><div class="rank-score">91,280</div></div>
+            <div class="rank-row"><div class="rank-number">3</div><div class="rank-avatar">⚡</div><div class="rank-user"><div class="rank-name">Sofia</div><div class="rank-xp">Nivel 37</div></div><div class="rank-score">87,640</div></div>
+            <div class="rank-row"><div class="rank-number">24</div><div class="rank-avatar">👤</div><div class="rank-user"><div class="rank-name">Tú</div><div class="rank-xp">Nivel 1</div></div><div class="rank-score">1,000</div></div>
         </div>
-
     </div>
-
 </div>
-
 
 <!-- ================= FRIENDS ================= -->
-
 <div id="friendsPage" class="page">
-
     <div class="header">
-
         <div>
-
-            <div class="brand-title">
-                👥 Amigos
-            </div>
-
-            <div class="brand-subtitle">
-                Juega con tus amigos
-            </div>
-
+            <div class="brand-title" data-i18n="friends_title">👥 Amigos</div>
+            <div class="brand-subtitle" data-i18n="friends_subtitle">Juega con tus amigos</div>
         </div>
-
-        <button class="icon-button"
-                onclick="showMessage('➕ Añadir amigos próximamente')">
-            ➕
-        </button>
-
+        <button class="icon-button" onclick="showMessage(translations[currentLang].coming_soon)">➕</button>
     </div>
-
-
     <div class="section">
-
         <div class="friend">
-
-            <div class="friend-avatar">
-                😎
-            </div>
-
-            <div class="friend-info">
-
-                <div class="friend-name">
-                    Carlos
-                </div>
-
-                <div class="friend-status">
-                    🟢 En línea
-                </div>
-
-            </div>
-
-            <button class="challenge"
-                    onclick="challenge('Carlos')">
-                RETAR
-            </button>
-
+            <div class="friend-avatar">😎</div>
+            <div class="friend-info"><div class="friend-name">Carlos</div><div class="friend-status">🟢 En línea</div></div>
+            <button class="challenge" onclick="challenge('Carlos')">RETAR</button>
         </div>
-
-
         <div class="friend">
-
-            <div class="friend-avatar">
-                🔥
-            </div>
-
-            <div class="friend-info">
-
-                <div class="friend-name">
-                    Ana
-                </div>
-
-                <div class="friend-status">
-                    🟢 En línea
-                </div>
-
-            </div>
-
-            <button class="challenge"
-                    onclick="challenge('Ana')">
-                RETAR
-            </button>
-
+            <div class="friend-avatar">🔥</div>
+            <div class="friend-info"><div class="friend-name">Ana</div><div class="friend-status">🟢 En línea</div></div>
+            <button class="challenge" onclick="challenge('Ana')">RETAR</button>
         </div>
-
-
         <div class="friend">
-
-            <div class="friend-avatar">
-                🧠
-            </div>
-
-            <div class="friend-info">
-
-                <div class="friend-name">
-                    Pedro
-                </div>
-
-                <div class="friend-status"
-                     style="color:#7f8796">
-                    ⚪ Desconectado
-                </div>
-
-            </div>
-
+            <div class="friend-avatar">🧠</div>
+            <div class="friend-info"><div class="friend-name">Pedro</div><div class="friend-status" style="color:var(--text-secondary)">⚪ Desconectado</div></div>
         </div>
-
     </div>
-
 </div>
-
 
 <!-- ================= PROFILE ================= -->
-
 <div id="profilePage" class="page">
-
     <div class="header">
-
         <div>
-
-            <div class="brand-title">
-                👤 Mi perfil
-            </div>
-
-            <div class="brand-subtitle">
-                Tu identidad en TON Arena
-            </div>
-
+            <div class="brand-title" data-i18n="profile_title">👤 Mi perfil</div>
+            <div class="brand-subtitle" data-i18n="profile_subtitle">Tu identidad en TON Arena</div>
         </div>
-
-        <button class="icon-button"
-                onclick="showMessage('⚙️ Configuración próximamente')">
-            ⚙️
-        </button>
-
+        <button class="icon-button" onclick="showMessage(translations[currentLang].coming_soon)">⚙️</button>
     </div>
-
-
     <div class="big-profile">
-
-        <div class="big-avatar">
-            👤
-        </div>
-
-        <div class="big-name"
-             id="profileName">
-            Jugador
-        </div>
-
-        <div class="level">
-            Nivel 1 • 350 XP
-        </div>
-
-
+        <div class="big-avatar">👤</div>
+        <div class="big-name" id="profileName">Jugador</div>
+        <div class="level">Nivel 1 • 350 XP</div>
         <div class="stats">
-
-            <div class="stat">
-
-                <div class="stat-number">
-                    0
-                </div>
-
-                <div class="stat-label">
-                    Victorias
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-number">
-                    0
-                </div>
-
-                <div class="stat-label">
-                    Partidas
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-number">
-                    0%
-                </div>
-
-                <div class="stat-label">
-                    Win Rate
-                </div>
-
-            </div>
-
+            <div class="stat"><div class="stat-number">0</div><div class="stat-label" data-i18n="wins">Victorias</div></div>
+            <div class="stat"><div class="stat-number">0</div><div class="stat-label" data-i18n="matches">Partidas</div></div>
+            <div class="stat"><div class="stat-number">0%</div><div class="stat-label" data-i18n="winrate">Win Rate</div></div>
         </div>
-
     </div>
-
-
     <div class="section">
-
-        <div class="section-title">
-            🏅 Logros
+        <div class="section-title" data-i18n="achievements">🏅 Logros</div>
+        <div class="quick-actions" style="margin-top:12px">
+            <div class="quick"><div class="quick-icon">🏆</div><div class="quick-title" data-i18n="first_win">Primer triunfo</div></div>
+            <div class="quick"><div class="quick-icon">🔥</div><div class="quick-title" data-i18n="streak">Racha</div></div>
+            <div class="quick"><div class="quick-icon">🎯</div><div class="quick-title" data-i18n="precision">Precisión</div></div>
         </div>
-
-        <div class="quick-actions"
-             style="margin-top:12px">
-
-            <div class="quick">
-                <div class="quick-icon">🏆</div>
-                <div class="quick-title">
-                    Primer triunfo
-                </div>
-            </div>
-
-            <div class="quick">
-                <div class="quick-icon">🔥</div>
-                <div class="quick-title">
-                    Racha
-                </div>
-            </div>
-
-            <div class="quick">
-                <div class="quick-icon">🎯</div>
-                <div class="quick-title">
-                    Precisión
-                </div>
-            </div>
-
-        </div>
-
     </div>
-
 </div>
-
 
 <!-- ================= BOTTOM NAV ================= -->
-
 <div class="bottom">
-
-    <div class="nav active"
-         onclick="navigate('homePage',this)">
-
-        <span class="nav-icon">🏠</span>
-        Inicio
-
+    <div class="nav active" onclick="navigate('homePage',this)">
+        <span class="nav-icon">🏠</span> <span data-i18n="nav_home">Inicio</span>
     </div>
-
-
-    <div class="nav"
-         onclick="navigate('rankingPage',this)">
-
-        <span class="nav-icon">🏆</span>
-        Ranking
-
+    <div class="nav" onclick="navigate('rankingPage',this)">
+        <span class="nav-icon">🏆</span> <span data-i18n="nav_ranking">Ranking</span>
     </div>
-
-
-    <div class="nav"
-         onclick="navigate('friendsPage',this)">
-
-        <span class="nav-icon">👥</span>
-        Amigos
-
+    <div class="nav" onclick="navigate('friendsPage',this)">
+        <span class="nav-icon">👥</span> <span data-i18n="nav_friends">Amigos</span>
     </div>
-
-
-    <div class="nav"
-         onclick="navigate('profilePage',this)">
-
-        <span class="nav-icon">👤</span>
-        Perfil
-
+    <div class="nav" onclick="navigate('profilePage',this)">
+        <span class="nav-icon">👤</span> <span data-i18n="nav_profile">Perfil</span>
     </div>
-
 </div>
 
+<!-- ================= SETTINGS MODAL ================= -->
+<div id="settingsModal" class="settings-overlay" onclick="if(event.target===this) closeSettings()">
+    <div class="settings-sheet">
+        <div class="settings-handle"></div>
+        <div class="settings-title" data-i18n="settings_title">⚙️ Ajustes</div>
 
+        <!-- Idioma -->
+        <div class="settings-group">
+            <div class="settings-group-label" data-i18n="language">Idioma</div>
+            <div class="lang-group">
+                <button class="lang-btn" id="langEs" onclick="setLanguage('es')">🇪🇸 Español</button>
+                <button class="lang-btn" id="langEn" onclick="setLanguage('en')">🇬🇧 English</button>
+                <button class="lang-btn" id="langFr" onclick="setLanguage('fr')">🇫🇷 Français</button>
+                <button class="lang-btn" id="langDe" onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+                <button class="lang-btn" id="langPt" onclick="setLanguage('pt')">🇵🇹 Português</button>
+                <button class="lang-btn" id="langRu" onclick="setLanguage('ru')">🇷🇺 Русский</button>
+                <button class="lang-btn" id="langZh" onclick="setLanguage('zh')">🇨🇳 中文</button>
+                <button class="lang-btn" id="langJa" onclick="setLanguage('ja')">🇯🇵 日本語</button>
+            </div>
+        </div>
+
+        <!-- Tema -->
+        <div class="settings-group">
+            <div class="settings-group-label" data-i18n="theme">Tema</div>
+            <div class="settings-row">
+                <span class="settings-row-label" data-i18n="dark_mode">Modo oscuro</span>
+                <div class="toggle" id="themeToggle" onclick="toggleTheme()"></div>
+            </div>
+        </div>
+
+        <!-- Sonido -->
+        <div class="settings-group">
+            <div class="settings-group-label" data-i18n="sound">Sonido</div>
+            <div class="settings-row">
+                <span class="settings-row-label" data-i18n="sound_effects">Efectos de sonido</span>
+                <div class="toggle" id="soundToggle" onclick="toggleSound()"></div>
+            </div>
+        </div>
+
+        <!-- Notificaciones -->
+        <div class="settings-group">
+            <div class="settings-group-label" data-i18n="notifications">Notificaciones</div>
+            <div class="settings-row">
+                <span class="settings-row-label" data-i18n="push_notifications">Notificaciones push</span>
+                <div class="toggle" id="notifToggle" onclick="toggleNotifications()"></div>
+            </div>
+        </div>
+
+        <button class="lang-btn" style="margin-top:10px; border-color:transparent; background:var(--bg-input); width:100%;" onclick="closeSettings()">
+            ✕ <span data-i18n="close">Cerrar</span>
+        </button>
+    </div>
+</div>
+
+<!-- ================= TOAST ================= -->
 <div id="toast" class="toast"></div>
 
 </div>
 
-
 <script>
 
-const tg = window.Telegram.WebApp;
+// ============================================================
+//  TRADUCCIONES (8 IDIOMAS)
+// ============================================================
+const translations = {
+    es: {
+        app_title: 'TON Arena', app_subtitle: 'Jugar • Chatear • Competir',
+        level_xp: 'Nivel 1 • 350 / 1000 XP', coins: 'Monedas',
+        online_players: 'jugadores conectados ahora',
+        quick_play_title: '⚡ Jugar', quick_play: 'Partida rápida',
+        create_game: 'Crear partida', tournaments: 'Torneos',
+        games_title: '🎮 Juegos', all: 'Todos',
+        activity_title: '🔥 Actividad',
+        ranking_title: '🏆 Ranking', ranking_subtitle: 'Los mejores jugadores',
+        global: 'Mundial', weekly: 'Semanal', friends: 'Amigos',
+        friends_title: '👥 Amigos', friends_subtitle: 'Juega con tus amigos',
+        profile_title: '👤 Mi perfil', profile_subtitle: 'Tu identidad en TON Arena',
+        wins: 'Victorias', matches: 'Partidas', winrate: 'Win Rate',
+        achievements: '🏅 Logros', first_win: 'Primer triunfo',
+        streak: 'Racha', precision: 'Precisión',
+        nav_home: 'Inicio', nav_ranking: 'Ranking', nav_friends: 'Amigos', nav_profile: 'Perfil',
+        settings_title: '⚙️ Ajustes', language: 'Idioma', theme: 'Tema',
+        dark_mode: 'Modo oscuro', sound: 'Sonido', sound_effects: 'Efectos de sonido',
+        notifications: 'Notificaciones', push_notifications: 'Notificaciones push',
+        close: 'Cerrar', coming_soon: 'Próximamente',
+        quick_match: '🎮 Buscando una partida rápida...',
+        notifications_empty: '🔔 No tienes nuevas notificaciones',
+        challenge_prefix: '⚔️ Has retado a '
+    },
+    en: {
+        app_title: 'TON Arena', app_subtitle: 'Play • Chat • Compete',
+        level_xp: 'Level 1 • 350 / 1000 XP', coins: 'Coins',
+        online_players: 'players online now',
+        quick_play_title: '⚡ Play', quick_play: 'Quick play',
+        create_game: 'Create game', tournaments: 'Tournaments',
+        games_title: '🎮 Games', all: 'All',
+        activity_title: '🔥 Activity',
+        ranking_title: '🏆 Ranking', ranking_subtitle: 'Top players',
+        global: 'Global', weekly: 'Weekly', friends: 'Friends',
+        friends_title: '👥 Friends', friends_subtitle: 'Play with your friends',
+        profile_title: '👤 My profile', profile_subtitle: 'Your identity in TON Arena',
+        wins: 'Wins', matches: 'Matches', winrate: 'Win Rate',
+        achievements: '🏅 Achievements', first_win: 'First win',
+        streak: 'Streak', precision: 'Precision',
+        nav_home: 'Home', nav_ranking: 'Ranking', nav_friends: 'Friends', nav_profile: 'Profile',
+        settings_title: '⚙️ Settings', language: 'Language', theme: 'Theme',
+        dark_mode: 'Dark mode', sound: 'Sound', sound_effects: 'Sound effects',
+        notifications: 'Notifications', push_notifications: 'Push notifications',
+        close: 'Close', coming_soon: 'Coming soon',
+        quick_match: '🎮 Searching for a quick match...',
+        notifications_empty: '🔔 No new notifications',
+        challenge_prefix: '⚔️ You challenged '
+    },
+    fr: {
+        app_title: 'TON Arena', app_subtitle: 'Jouer • Discuter • Compétition',
+        level_xp: 'Niveau 1 • 350 / 1000 XP', coins: 'Pièces',
+        online_players: 'joueurs en ligne maintenant',
+        quick_play_title: '⚡ Jouer', quick_play: 'Partie rapide',
+        create_game: 'Créer une partie', tournaments: 'Tournois',
+        games_title: '🎮 Jeux', all: 'Tous',
+        activity_title: '🔥 Activité',
+        ranking_title: '🏆 Classement', ranking_subtitle: 'Meilleurs joueurs',
+        global: 'Mondial', weekly: 'Hebdomadaire', friends: 'Amis',
+        friends_title: '👥 Amis', friends_subtitle: 'Jouez avec vos amis',
+        profile_title: '👤 Mon profil', profile_subtitle: 'Votre identité sur TON Arena',
+        wins: 'Victoires', matches: 'Matchs', winrate: 'Taux de victoire',
+        achievements: '🏅 Succès', first_win: 'Première victoire',
+        streak: 'Série', precision: 'Précision',
+        nav_home: 'Accueil', nav_ranking: 'Classement', nav_friends: 'Amis', nav_profile: 'Profil',
+        settings_title: '⚙️ Paramètres', language: 'Langue', theme: 'Thème',
+        dark_mode: 'Mode sombre', sound: 'Son', sound_effects: 'Effets sonores',
+        notifications: 'Notifications', push_notifications: 'Notifications push',
+        close: 'Fermer', coming_soon: 'Bientôt disponible',
+        quick_match: '🎮 Recherche d\'une partie rapide...',
+        notifications_empty: '🔔 Aucune nouvelle notification',
+        challenge_prefix: '⚔️ Vous avez défié '
+    },
+    de: {
+        app_title: 'TON Arena', app_subtitle: 'Spielen • Chatten • Wettkämpfen',
+        level_xp: 'Level 1 • 350 / 1000 XP', coins: 'Münzen',
+        online_players: 'Spieler jetzt online',
+        quick_play_title: '⚡ Spielen', quick_play: 'Schnelles Spiel',
+        create_game: 'Spiel erstellen', tournaments: 'Turniere',
+        games_title: '🎮 Spiele', all: 'Alle',
+        activity_title: '🔥 Aktivität',
+        ranking_title: '🏆 Rangliste', ranking_subtitle: 'Beste Spieler',
+        global: 'Weltweit', weekly: 'Wöchentlich', friends: 'Freunde',
+        friends_title: '👥 Freunde', friends_subtitle: 'Spiele mit deinen Freunden',
+        profile_title: '👤 Mein Profil', profile_subtitle: 'Deine Identität in TON Arena',
+        wins: 'Siege', matches: 'Spiele', winrate: 'Gewinnrate',
+        achievements: '🏅 Erfolge', first_win: 'Erster Sieg',
+        streak: 'Serie', precision: 'Präzision',
+        nav_home: 'Startseite', nav_ranking: 'Rangliste', nav_friends: 'Freunde', nav_profile: 'Profil',
+        settings_title: '⚙️ Einstellungen', language: 'Sprache', theme: 'Thema',
+        dark_mode: 'Dunkelmodus', sound: 'Sound', sound_effects: 'Soundeffekte',
+        notifications: 'Benachrichtigungen', push_notifications: 'Push-Benachrichtigungen',
+        close: 'Schließen', coming_soon: 'Demnächst verfügbar',
+        quick_match: '🎮 Suche nach einem schnellen Spiel...',
+        notifications_empty: '🔔 Keine neuen Benachrichtigungen',
+        challenge_prefix: '⚔️ Du hast herausgefordert '
+    },
+    pt: {
+        app_title: 'TON Arena', app_subtitle: 'Jogar • Bate-papo • Competir',
+        level_xp: 'Nível 1 • 350 / 1000 XP', coins: 'Moedas',
+        online_players: 'jogadores online agora',
+        quick_play_title: '⚡ Jogar', quick_play: 'Partida rápida',
+        create_game: 'Criar partida', tournaments: 'Torneios',
+        games_title: '🎮 Jogos', all: 'Todos',
+        activity_title: '🔥 Atividade',
+        ranking_title: '🏆 Ranking', ranking_subtitle: 'Melhores jogadores',
+        global: 'Mundial', weekly: 'Semanal', friends: 'Amigos',
+        friends_title: '👥 Amigos', friends_subtitle: 'Jogue com seus amigos',
+        profile_title: '👤 Meu perfil', profile_subtitle: 'Sua identidade no TON Arena',
+        wins: 'Vitórias', matches: 'Partidas', winrate: 'Taxa de vitória',
+        achievements: '🏅 Conquistas', first_win: 'Primeira vitória',
+        streak: 'Sequência', precision: 'Precisão',
+        nav_home: 'Início', nav_ranking: 'Ranking', nav_friends: 'Amigos', nav_profile: 'Perfil',
+        settings_title: '⚙️ Configurações', language: 'Idioma', theme: 'Tema',
+        dark_mode: 'Modo escuro', sound: 'Som', sound_effects: 'Efeitos sonoros',
+        notifications: 'Notificações', push_notifications: 'Notificações push',
+        close: 'Fechar', coming_soon: 'Em breve',
+        quick_match: '🎮 Procurando uma partida rápida...',
+        notifications_empty: '🔔 Nenhuma nova notificação',
+        challenge_prefix: '⚔️ Você desafiou '
+    },
+    ru: {
+        app_title: 'TON Арена', app_subtitle: 'Играть • Общаться • Соревноваться',
+        level_xp: 'Уровень 1 • 350 / 1000 XP', coins: 'Монеты',
+        online_players: 'игроков онлайн сейчас',
+        quick_play_title: '⚡ Играть', quick_play: 'Быстрая игра',
+        create_game: 'Создать игру', tournaments: 'Турниры',
+        games_title: '🎮 Игры', all: 'Все',
+        activity_title: '🔥 Активность',
+        ranking_title: '🏆 Рейтинг', ranking_subtitle: 'Лучшие игроки',
+        global: 'Мировой', weekly: 'Еженедельный', friends: 'Друзья',
+        friends_title: '👥 Друзья', friends_subtitle: 'Играйте с друзьями',
+        profile_title: '👤 Мой профиль', profile_subtitle: 'Ваша личность в TON Arena',
+        wins: 'Победы', matches: 'Матчи', winrate: 'Процент побед',
+        achievements: '🏅 Достижения', first_win: 'Первая победа',
+        streak: 'Серия', precision: 'Точность',
+        nav_home: 'Главная', nav_ranking: 'Рейтинг', nav_friends: 'Друзья', nav_profile: 'Профиль',
+        settings_title: '⚙️ Настройки', language: 'Язык', theme: 'Тема',
+        dark_mode: 'Тёмный режим', sound: 'Звук', sound_effects: 'Звуковые эффекты',
+        notifications: 'Уведомления', push_notifications: 'Push-уведомления',
+        close: 'Закрыть', coming_soon: 'Скоро появится',
+        quick_match: '🎮 Поиск быстрой игры...',
+        notifications_empty: '🔔 Нет новых уведомлений',
+        challenge_prefix: '⚔️ Вы вызвали на бой '
+    },
+    zh: {
+        app_title: 'TON 竞技场', app_subtitle: '游玩 • 聊天 • 竞技',
+        level_xp: '等级 1 • 350 / 1000 经验值', coins: '金币',
+        online_players: '玩家在线',
+        quick_play_title: '⚡ 开始游戏', quick_play: '快速匹配',
+        create_game: '创建房间', tournaments: '锦标赛',
+        games_title: '🎮 游戏', all: '全部',
+        activity_title: '🔥 动态',
+        ranking_title: '🏆 排行榜', ranking_subtitle: '顶尖玩家',
+        global: '全球', weekly: '每周', friends: '好友',
+        friends_title: '👥 好友', friends_subtitle: '和好友一起玩',
+        profile_title: '👤 我的档案', profile_subtitle: '你在 TON Arena 的身份',
+        wins: '胜利', matches: '对局', winrate: '胜率',
+        achievements: '🏅 成就', first_win: '首胜',
+        streak: '连胜', precision: '精准',
+        nav_home: '首页', nav_ranking: '排行榜', nav_friends: '好友', nav_profile: '档案',
+        settings_title: '⚙️ 设置', language: '语言', theme: '主题',
+        dark_mode: '深色模式', sound: '音效', sound_effects: '音效',
+        notifications: '通知', push_notifications: '推送通知',
+        close: '关闭', coming_soon: '即将上线',
+        quick_match: '🎮 正在寻找快速匹配...',
+        notifications_empty: '🔔 没有新通知',
+        challenge_prefix: '⚔️ 你挑战了 '
+    },
+    ja: {
+        app_title: 'TON アリーナ', app_subtitle: 'プレイ • チャット • 競争',
+        level_xp: 'レベル 1 • 350 / 1000 XP', coins: 'コイン',
+        online_players: '人がオンライン中',
+        quick_play_title: '⚡ プレイ', quick_play: 'クイックマッチ',
+        create_game: '部屋を作成', tournaments: 'トーナメント',
+        games_title: '🎮 ゲーム', all: 'すべて',
+        activity_title: '🔥 アクティビティ',
+        ranking_title: '🏆 ランキング', ranking_subtitle: 'トッププレイヤー',
+        global: 'グローバル', weekly: 'ウィークリー', friends: '友達',
+        friends_title: '👥 友達', friends_subtitle: '友達と遊ぶ',
+        profile_title: '👤 マイプロフィール', profile_subtitle: 'TON Arena でのあなたのアイデンティティ',
+        wins: '勝利', matches: '試合', winrate: '勝率',
+        achievements: '🏅 実績', first_win: '初勝利',
+        streak: '連勝', precision: '精度',
+        nav_home: 'ホーム', nav_ranking: 'ランキング', nav_friends: '友達', nav_profile: 'プロフィール',
+        settings_title: '⚙️ 設定', language: '言語', theme: 'テーマ',
+        dark_mode: 'ダークモード', sound: 'サウンド', sound_effects: '効果音',
+        notifications: '通知', push_notifications: 'プッシュ通知',
+        close: '閉じる', coming_soon: '近日公開',
+        quick_match: '🎮 クイックマッチを検索中...',
+        notifications_empty: '🔔 新しい通知はありません',
+        challenge_prefix: '⚔️ あなたは に挑戦しました '
+    }
+};
 
+let currentLang = localStorage.getItem('lang') || 'es';
+let currentTheme = localStorage.getItem('theme') || 'dark';
+let soundEnabled = localStorage.getItem('sound') !== 'off';
+let notifEnabled = localStorage.getItem('notifications') !== 'off';
+
+// ============================================================
+//  APLICAR IDIOMA
+// ============================================================
+function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (translations[lang] && translations[lang][key]) {
+            el.innerText = translations[lang][key];
+        }
+    });
+    // Actualizar botones de idioma
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        const langCode = btn.id.replace('lang', '').toLowerCase();
+        btn.classList.toggle('active', langCode === currentLang);
+    });
+}
+
+function setLanguage(lang) {
+    applyLanguage(lang);
+    const names = { es:'Español', en:'English', fr:'Français', de:'Deutsch', pt:'Português', ru:'Русский', zh:'中文', ja:'日本語' };
+    showMessage('🌐 ' + names[lang] + (lang === 'es' ? ' seleccionado' : ' selected'));
+    closeSettings();
+}
+
+// ============================================================
+//  APLICAR TEMA
+// ============================================================
+function applyTheme(theme) {
+    currentTheme = theme;
+    localStorage.setItem('theme', theme);
+    document.body.classList.toggle('light-theme', theme === 'light');
+    document.getElementById('themeToggle').classList.toggle('active', theme === 'light');
+}
+
+function toggleTheme() {
+    const next = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    showMessage('🎨 ' + (next === 'light' ? 'Modo claro activado' : 'Dark mode enabled'));
+}
+
+// ============================================================
+//  SONIDO Y NOTIFICACIONES
+// ============================================================
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('sound', soundEnabled ? 'on' : 'off');
+    document.getElementById('soundToggle').classList.toggle('active', soundEnabled);
+    showMessage('🔊 ' + (soundEnabled ? 'Sonido activado' : 'Sound muted'));
+}
+
+function toggleNotifications() {
+    notifEnabled = !notifEnabled;
+    localStorage.setItem('notifications', notifEnabled ? 'on' : 'off');
+    document.getElementById('notifToggle').classList.toggle('active', notifEnabled);
+    showMessage('🔔 ' + (notifEnabled ? 'Notificaciones activadas' : 'Notifications muted'));
+}
+
+// ============================================================
+//  SETTINGS MODAL
+// ============================================================
+function openSettings() {
+    document.getElementById('settingsModal').classList.add('open');
+    document.getElementById('themeToggle').classList.toggle('active', currentTheme === 'light');
+    document.getElementById('soundToggle').classList.toggle('active', soundEnabled);
+    document.getElementById('notifToggle').classList.toggle('active', notifEnabled);
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        const langCode = btn.id.replace('lang', '').toLowerCase();
+        btn.classList.toggle('active', langCode === currentLang);
+    });
+}
+
+function closeSettings() {
+    document.getElementById('settingsModal').classList.remove('open');
+}
+
+// ============================================================
+//  TELEGRAM Y NAVEGACIÓN
+// ============================================================
+const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-
-/* TELEGRAM USER */
-
 const telegramUser = tg.initDataUnsafe?.user;
-
 if (telegramUser) {
-
-    const name =
-        telegramUser.first_name ||
-        telegramUser.username ||
-        "Jugador";
-
-    document.getElementById("username")
-        .innerText = name;
-
-    document.getElementById("profileName")
-        .innerText = name;
-
+    const name = telegramUser.first_name || telegramUser.username || "Jugador";
+    document.getElementById("username").innerText = name;
+    document.getElementById("profileName").innerText = name;
 }
 
-
-/* NAVEGACIÓN */
-
 function navigate(pageId, element) {
-
-    document.querySelectorAll(".page")
-        .forEach(page => {
-            page.classList.remove("active");
-        });
-
-    document.getElementById(pageId)
-        .classList.add("active");
-
-    document.querySelectorAll(".nav")
-        .forEach(nav => {
-            nav.classList.remove("active");
-        });
-
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(pageId).classList.add("active");
+    document.querySelectorAll(".nav").forEach(n => n.classList.remove("active"));
     element.classList.add("active");
-
     window.scrollTo(0,0);
 }
 
-
-/* MENSAJES */
-
 function showMessage(message) {
-
-    const toast =
-        document.getElementById("toast");
-
+    const toast = document.getElementById("toast");
     toast.innerText = message;
-
     toast.classList.add("show");
-
-    setTimeout(() => {
-
-        toast.classList.remove("show");
-
-    }, 2200);
-
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => toast.classList.remove("show"), 2200);
 }
-
-
-/* JUEGO */
 
 function openGame(icon, name) {
-
-    showMessage(
-        icon + " " + name +
-        " estará disponible próximamente"
-    );
-
+    showMessage(icon + " " + name + " " + translations[currentLang].coming_soon);
 }
-
-
-/* RETAR */
 
 function challenge(name) {
-
-    showMessage(
-        "⚔️ Has retado a " + name
-    );
-
+    showMessage(translations[currentLang].challenge_prefix + name);
 }
 
-
-/* BOTÓN TELEGRAM */
-
+// ============================================================
+//  BOTÓN BACK DE TELEGRAM
+// ============================================================
 try {
-
-    tg.BackButton.onClick(() => {
-
-        tg.BackButton.hide();
-
-    });
-
+    tg.BackButton.onClick(() => tg.BackButton.hide());
 } catch(e) {}
+
+// ============================================================
+//  INICIALIZAR
+// ============================================================
+applyLanguage(currentLang);
+applyTheme(currentTheme);
+document.getElementById('soundToggle').classList.toggle('active', soundEnabled);
+document.getElementById('notifToggle').classList.toggle('active', notifEnabled);
 
 </script>
 
 </body>
-        </html>
+                      </html>
