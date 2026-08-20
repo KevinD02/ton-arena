@@ -1,274 +1,1472 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TON Arena</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>TON Arena</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #111827;
-            color: white;
-        }
+<style>
 
-        .app {
-            max-width: 600px;
-            margin: auto;
-            min-height: 100vh;
-            padding-bottom: 80px;
-        }
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
-        .header {
-            padding: 25px 20px 15px;
-        }
+body {
+    margin: 0;
+    background: #10131a;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-        }
+button {
+    font-family: inherit;
+}
 
-        .subtitle {
-            color: #9ca3af;
-            margin-top: 5px;
-        }
+.app {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    min-height: 100vh;
+    padding-bottom: 90px;
+}
 
-        .profile {
-            margin: 10px 20px;
-            padding: 18px;
-            background: #1f2937;
-            border-radius: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* HEADER */
 
-        .avatar {
-            width: 48px;
-            height: 48px;
-            background: #374151;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
-        }
+.header {
+    padding: 20px 18px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .user {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .balance {
-            text-align: right;
-        }
+.logo {
+    width: 43px;
+    height: 43px;
+    border-radius: 14px;
+    background: linear-gradient(135deg,#229ed9,#6366f1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
 
-        .coins {
-            font-size: 20px;
-            font-weight: bold;
-        }
+.brand-title {
+    font-size: 21px;
+    font-weight: 800;
+}
 
-        .balance-title {
-            color: #9ca3af;
-            font-size: 12px;
-        }
+.brand-subtitle {
+    color: #858b99;
+    font-size: 11px;
+    margin-top: 2px;
+}
 
-        .play-button {
-            margin: 20px;
-            width: calc(100% - 40px);
-            border: none;
-            padding: 18px;
-            border-radius: 16px;
-            background: #229ed9;
-            color: white;
-            font-size: 19px;
-            font-weight: bold;
-        }
+.header-icons {
+    display: flex;
+    gap: 8px;
+}
 
-        .section-title {
-            padding: 10px 20px;
-            font-size: 20px;
-            font-weight: bold;
-        }
+.icon-button {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 13px;
+    background: #1b202b;
+    color: white;
+    font-size: 18px;
+}
 
-        .games {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 0 20px;
-        }
+/* PROFILE CARD */
 
-        .game {
-            background: #1f2937;
-            border-radius: 18px;
-            padding: 22px 12px;
-            text-align: center;
-            border: 1px solid #374151;
-        }
+.profile-card {
+    margin: 5px 16px 15px;
+    padding: 16px;
+    border-radius: 20px;
+    background: linear-gradient(
+        135deg,
+        #1c2535,
+        #171b25
+    );
+    border: 1px solid #2a3140;
+}
 
-        .game-icon {
-            font-size: 42px;
-        }
+.profile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .game-name {
-            margin-top: 10px;
-            font-weight: bold;
-        }
+.profile-left {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
 
-        .game-status {
-            margin-top: 5px;
-            color: #9ca3af;
-            font-size: 12px;
-        }
+.avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 17px;
+    background: #293143;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
 
-        .bottom {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            max-width: 600px;
-            margin: auto;
-            height: 65px;
-            background: #111827;
-            border-top: 1px solid #374151;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
+.username {
+    font-size: 17px;
+    font-weight: 700;
+}
 
-        .nav {
-            text-align: center;
-            color: #9ca3af;
-            font-size: 12px;
-        }
+.level {
+    color: #9299a8;
+    font-size: 12px;
+    margin-top: 4px;
+}
 
-        .nav-icon {
-            font-size: 22px;
-            display: block;
-        }
-    </style>
+.balance {
+    text-align: right;
+}
+
+.balance-label {
+    color: #858b99;
+    font-size: 11px;
+}
+
+.balance-value {
+    font-size: 19px;
+    font-weight: 800;
+    margin-top: 3px;
+}
+
+.progress {
+    height: 5px;
+    background: #303747;
+    border-radius: 20px;
+    margin-top: 14px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 35%;
+    background: linear-gradient(
+        90deg,
+        #229ed9,
+        #8b5cf6
+    );
+}
+
+/* ONLINE */
+
+.online {
+    margin: 0 18px 18px;
+    color: #9097a5;
+    font-size: 12px;
+}
+
+.online span {
+    color: #38d996;
+}
+
+/* SECTION */
+
+.section {
+    padding: 0 18px;
+    margin-top: 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 11px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.see-all {
+    color: #4db5e8;
+    font-size: 12px;
+}
+
+/* QUICK ACTIONS */
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 9px;
+}
+
+.quick {
+    background: #1a1f2a;
+    border: 1px solid #272e3b;
+    border-radius: 15px;
+    padding: 13px 5px;
+    text-align: center;
+}
+
+.quick-icon {
+    font-size: 23px;
+}
+
+.quick-title {
+    font-size: 11px;
+    color: #b4bac5;
+    margin-top: 5px;
+}
+
+/* GAMES */
+
+.games {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.game {
+    min-height: 145px;
+    border-radius: 20px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #2c3442;
+    background: linear-gradient(
+        145deg,
+        #202838,
+        #171c26
+    );
+    transition: transform .15s;
+}
+
+.game:active {
+    transform: scale(.97);
+}
+
+.game-icon {
+    font-size: 45px;
+}
+
+.game-name {
+    font-size: 16px;
+    font-weight: 800;
+    margin-top: 8px;
+}
+
+.game-description {
+    font-size: 10px;
+    color: #8d95a5;
+    margin-top: 4px;
+}
+
+.players {
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    color: #6ed9a8;
+    font-size: 10px;
+}
+
+.game-arrow {
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+    color: #687386;
+}
+
+/* CATEGORIES */
+
+.categories {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.categories::-webkit-scrollbar {
+    display: none;
+}
+
+.category {
+    white-space: nowrap;
+    padding: 9px 13px;
+    border-radius: 12px;
+    background: #1b202b;
+    color: #9da4b2;
+    border: 1px solid #2b3240;
+    font-size: 11px;
+}
+
+.category.active {
+    background: #203d52;
+    color: #52bce9;
+    border-color: #285e7e;
+}
+
+/* ACTIVITY */
+
+.activity {
+    background: #191e28;
+    border-radius: 18px;
+    border: 1px solid #292f3c;
+    overflow: hidden;
+}
+
+.activity-row {
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    border-bottom: 1px solid #292f3c;
+}
+
+.activity-row:last-child {
+    border-bottom: none;
+}
+
+.activity-avatar {
+    width: 38px;
+    height: 38px;
+    background: #2a3241;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.activity-text {
+    flex: 1;
+}
+
+.activity-name {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.activity-info {
+    color: #7f8796;
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.activity-result {
+    font-size: 11px;
+    color: #46d39b;
+}
+
+/* BOTTOM NAV */
+
+.bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: rgba(16,19,26,.97);
+    border-top: 1px solid #292f3b;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+    max-width: 600px;
+    margin: auto;
+}
+
+.nav {
+    width: 25%;
+    text-align: center;
+    color: #747c8c;
+    font-size: 10px;
+}
+
+.nav-icon {
+    display: block;
+    font-size: 21px;
+    margin-bottom: 4px;
+}
+
+.nav.active {
+    color: #4db5e8;
+}
+
+/* PAGE */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* RANKING */
+
+.rank-card {
+    background: #191e28;
+    border: 1px solid #292f3c;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.rank-row {
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    border-bottom: 1px solid #292f3c;
+    gap: 12px;
+}
+
+.rank-number {
+    width: 25px;
+    text-align: center;
+    font-weight: 800;
+    color: #8d95a5;
+}
+
+.rank-avatar {
+    width: 42px;
+    height: 42px;
+    background: #2a3241;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rank-user {
+    flex: 1;
+}
+
+.rank-name {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.rank-xp {
+    color: #808898;
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.rank-score {
+    font-weight: 800;
+    font-size: 12px;
+}
+
+/* PROFILE PAGE */
+
+.big-profile {
+    text-align: center;
+    padding: 20px;
+}
+
+.big-avatar {
+    width: 85px;
+    height: 85px;
+    margin: auto;
+    border-radius: 25px;
+    background: linear-gradient(135deg,#26364c,#29344b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+}
+
+.big-name {
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 9px;
+    margin-top: 20px;
+}
+
+.stat {
+    background: #1a1f29;
+    border: 1px solid #292f3b;
+    border-radius: 15px;
+    padding: 13px 5px;
+}
+
+.stat-number {
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.stat-label {
+    color: #7f8796;
+    font-size: 9px;
+    margin-top: 4px;
+}
+
+/* FRIENDS */
+
+.friend {
+    background: #191e28;
+    border: 1px solid #292f3c;
+    padding: 13px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 9px;
+}
+
+.friend-avatar {
+    width: 44px;
+    height: 44px;
+    background: #293242;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.friend-info {
+    flex: 1;
+}
+
+.friend-name {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.friend-status {
+    color: #43d19a;
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.challenge {
+    background: #203d52;
+    border: 0;
+    color: #5bc2ef;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 85px;
+    transform: translateX(-50%);
+    background: #242b38;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 13px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .25s;
+    z-index: 300;
+    white-space: nowrap;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:360px) {
+
+    .games {
+        gap: 8px;
+    }
+
+    .game {
+        padding: 12px;
+    }
+
+    .game-icon {
+        font-size: 38px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
+<!-- ================= HOME ================= -->
+
+<div id="homePage" class="page active">
+
     <div class="header">
-        <div class="logo">🏆 TON Arena</div>
-        <div class="subtitle">Compite. Gana. Domina.</div>
-    </div>
 
-    <div class="profile">
+        <div class="brand">
 
-        <div class="user">
-            <div class="avatar">👤</div>
+            <div class="logo">🏆</div>
 
             <div>
-                <div id="username">Jugador</div>
-                <div class="balance-title">Nivel 1</div>
+                <div class="brand-title">TON Arena</div>
+                <div class="brand-subtitle">
+                    Play • Chat • Compete
+                </div>
+            </div>
+
+        </div>
+
+        <div class="header-icons">
+
+            <button class="icon-button"
+                    onclick="showMessage('🔔 No tienes nuevas notificaciones')">
+                🔔
+            </button>
+
+            <button class="icon-button"
+                    onclick="showMessage('🔍 Búsqueda próximamente')">
+                🔍
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <div class="profile-top">
+
+            <div class="profile-left">
+
+                <div class="avatar">
+                    👤
+                </div>
+
+                <div>
+
+                    <div class="username"
+                         id="username">
+                        Jugador
+                    </div>
+
+                    <div class="level">
+                        Nivel 1 • 350 / 1000 XP
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="balance">
+
+                <div class="balance-label">
+                    Monedas
+                </div>
+
+                <div class="balance-value">
+                    🪙 1,000
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-bar"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="online">
+        🟢 <span>1,284 jugadores</span> conectados ahora
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-title">
+                ⚡ Jugar
+            </div>
+
+        </div>
+
+        <div class="quick-actions">
+
+            <div class="quick"
+                 onclick="showMessage('🎮 Buscando una partida rápida...')">
+                <div class="quick-icon">⚡</div>
+                <div class="quick-title">Partida rápida</div>
+            </div>
+
+            <div class="quick"
+                 onclick="showMessage('👥 Crear partida próximamente')">
+                <div class="quick-icon">➕</div>
+                <div class="quick-title">Crear partida</div>
+            </div>
+
+            <div class="quick"
+                 onclick="showMessage('🏆 Torneos próximamente')">
+                <div class="quick-icon">🏆</div>
+                <div class="quick-title">Torneos</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-title">
+                🎮 Juegos
+            </div>
+
+            <div class="see-all"
+                 onclick="showMessage('Biblioteca completa próximamente')">
+                Ver todos
+            </div>
+
+        </div>
+
+
+        <div class="categories">
+
+            <div class="category active">Todos</div>
+            <div class="category">🎯 Arcade</div>
+            <div class="category">♟ Mesa</div>
+            <div class="category">🃏 Cartas</div>
+            <div class="category">⚽ Deportes</div>
+            <div class="category">🧠 Estrategia</div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="games">
+
+            <div class="game"
+                 onclick="openGame('🎱','Billar')">
+
+                <div class="game-icon">🎱</div>
+
+                <div class="game-name">
+                    Billar
+                </div>
+
+                <div class="game-description">
+                    8-Ball • 9-Ball
+                </div>
+
+                <div class="players">
+                    🟢 324 jugando
+                </div>
+
+                <div class="game-arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <div class="game"
+                 onclick="openGame('🔴','4 en línea')">
+
+                <div class="game-icon">🔴</div>
+
+                <div class="game-name">
+                    4 en línea
+                </div>
+
+                <div class="game-description">
+                    1 vs 1
+                </div>
+
+                <div class="players">
+                    🟢 218 jugando
+                </div>
+
+                <div class="game-arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <div class="game"
+                 onclick="openGame('♟️','Ajedrez')">
+
+                <div class="game-icon">♟️</div>
+
+                <div class="game-name">
+                    Ajedrez
+                </div>
+
+                <div class="game-description">
+                    Estrategia 1 vs 1
+                </div>
+
+                <div class="players">
+                    🟢 147 jugando
+                </div>
+
+                <div class="game-arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <div class="game"
+                 onclick="openGame('🃏','Cartas')">
+
+                <div class="game-icon">🃏</div>
+
+                <div class="game-name">
+                    Cartas
+                </div>
+
+                <div class="game-description">
+                    Próximamente
+                </div>
+
+                <div class="players">
+                    🟢 89 jugando
+                </div>
+
+                <div class="game-arrow">
+                    ›
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <div class="section-title">
+                🔥 Actividad
+            </div>
+
+        </div>
+
+        <div class="activity">
+
+            <div class="activity-row">
+
+                <div class="activity-avatar">🎱</div>
+
+                <div class="activity-text">
+
+                    <div class="activity-name">
+                        Carlos ganó una partida
+                    </div>
+
+                    <div class="activity-info">
+                        Billar • hace 1 min
+                    </div>
+
+                </div>
+
+                <div class="activity-result">
+                    Victoria
+                </div>
+
+            </div>
+
+
+            <div class="activity-row">
+
+                <div class="activity-avatar">🔴</div>
+
+                <div class="activity-text">
+
+                    <div class="activity-name">
+                        Ana retó a Pedro
+                    </div>
+
+                    <div class="activity-info">
+                        4 en línea • hace 3 min
+                    </div>
+
+                </div>
+
+                <div class="activity-result">
+                    ⚔️
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= RANKING ================= -->
+
+<div id="rankingPage" class="page">
+
+    <div class="header">
+
+        <div>
+            <div class="brand-title">🏆 Ranking</div>
+            <div class="brand-subtitle">
+                Los mejores jugadores
             </div>
         </div>
 
-        <div class="balance">
-            <div class="balance-title">Saldo</div>
-            <div class="coins">🪙 1,000</div>
+    </div>
+
+
+    <div class="section">
+
+        <div class="categories">
+
+            <div class="category active">
+                Mundial
+            </div>
+
+            <div class="category">
+                Semanal
+            </div>
+
+            <div class="category">
+                Amigos
+            </div>
+
         </div>
 
     </div>
 
-    <button class="play-button" onclick="play()">
-        🎮 JUGAR AHORA
-    </button>
 
-    <div class="section-title">
-        🎮 Juegos
-    </div>
+    <div class="section">
 
-    <div class="games">
+        <div class="rank-card">
 
-        <div class="game" onclick="game('pool')">
-            <div class="game-icon">🎱</div>
-            <div class="game-name">Billar</div>
-            <div class="game-status">Próximamente</div>
-        </div>
+            <div class="rank-row">
 
-        <div class="game" onclick="game('connect4')">
-            <div class="game-icon">🔴</div>
-            <div class="game-name">4 en línea</div>
-            <div class="game-status">Próximamente</div>
-        </div>
+                <div class="rank-number">1</div>
 
-        <div class="game" onclick="game('chess')">
-            <div class="game-icon">♟️</div>
-            <div class="game-name">Ajedrez</div>
-            <div class="game-status">Próximamente</div>
-        </div>
+                <div class="rank-avatar">👑</div>
 
-        <div class="game" onclick="game('cards')">
-            <div class="game-icon">🃏</div>
-            <div class="game-name">Cartas</div>
-            <div class="game-status">Próximamente</div>
+                <div class="rank-user">
+
+                    <div class="rank-name">
+                        Alex
+                    </div>
+
+                    <div class="rank-xp">
+                        Nivel 42
+                    </div>
+
+                </div>
+
+                <div class="rank-score">
+                    98,420
+                </div>
+
+            </div>
+
+
+            <div class="rank-row">
+
+                <div class="rank-number">2</div>
+
+                <div class="rank-avatar">🔥</div>
+
+                <div class="rank-user">
+
+                    <div class="rank-name">
+                        Carlos
+                    </div>
+
+                    <div class="rank-xp">
+                        Nivel 39
+                    </div>
+
+                </div>
+
+                <div class="rank-score">
+                    91,280
+                </div>
+
+            </div>
+
+
+            <div class="rank-row">
+
+                <div class="rank-number">3</div>
+
+                <div class="rank-avatar">⚡</div>
+
+                <div class="rank-user">
+
+                    <div class="rank-name">
+                        Sofia
+                    </div>
+
+                    <div class="rank-xp">
+                        Nivel 37
+                    </div>
+
+                </div>
+
+                <div class="rank-score">
+                    87,640
+                </div>
+
+            </div>
+
+
+            <div class="rank-row">
+
+                <div class="rank-number">24</div>
+
+                <div class="rank-avatar">👤</div>
+
+                <div class="rank-user">
+
+                    <div class="rank-name">
+                        Tú
+                    </div>
+
+                    <div class="rank-xp">
+                        Nivel 1
+                    </div>
+
+                </div>
+
+                <div class="rank-score">
+                    1,000
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
 </div>
+
+
+<!-- ================= FRIENDS ================= -->
+
+<div id="friendsPage" class="page">
+
+    <div class="header">
+
+        <div>
+
+            <div class="brand-title">
+                👥 Amigos
+            </div>
+
+            <div class="brand-subtitle">
+                Juega con tus amigos
+            </div>
+
+        </div>
+
+        <button class="icon-button"
+                onclick="showMessage('➕ Añadir amigos próximamente')">
+            ➕
+        </button>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="friend">
+
+            <div class="friend-avatar">
+                😎
+            </div>
+
+            <div class="friend-info">
+
+                <div class="friend-name">
+                    Carlos
+                </div>
+
+                <div class="friend-status">
+                    🟢 En línea
+                </div>
+
+            </div>
+
+            <button class="challenge"
+                    onclick="challenge('Carlos')">
+                RETAR
+            </button>
+
+        </div>
+
+
+        <div class="friend">
+
+            <div class="friend-avatar">
+                🔥
+            </div>
+
+            <div class="friend-info">
+
+                <div class="friend-name">
+                    Ana
+                </div>
+
+                <div class="friend-status">
+                    🟢 En línea
+                </div>
+
+            </div>
+
+            <button class="challenge"
+                    onclick="challenge('Ana')">
+                RETAR
+            </button>
+
+        </div>
+
+
+        <div class="friend">
+
+            <div class="friend-avatar">
+                🧠
+            </div>
+
+            <div class="friend-info">
+
+                <div class="friend-name">
+                    Pedro
+                </div>
+
+                <div class="friend-status"
+                     style="color:#7f8796">
+                    ⚪ Desconectado
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= PROFILE ================= -->
+
+<div id="profilePage" class="page">
+
+    <div class="header">
+
+        <div>
+
+            <div class="brand-title">
+                👤 Mi perfil
+            </div>
+
+            <div class="brand-subtitle">
+                Tu identidad en TON Arena
+            </div>
+
+        </div>
+
+        <button class="icon-button"
+                onclick="showMessage('⚙️ Configuración próximamente')">
+            ⚙️
+        </button>
+
+    </div>
+
+
+    <div class="big-profile">
+
+        <div class="big-avatar">
+            👤
+        </div>
+
+        <div class="big-name"
+             id="profileName">
+            Jugador
+        </div>
+
+        <div class="level">
+            Nivel 1 • 350 XP
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="stat-number">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Victorias
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-number">
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Partidas
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-number">
+                    0%
+                </div>
+
+                <div class="stat-label">
+                    Win Rate
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            🏅 Logros
+        </div>
+
+        <div class="quick-actions"
+             style="margin-top:12px">
+
+            <div class="quick">
+                <div class="quick-icon">🏆</div>
+                <div class="quick-title">
+                    Primer triunfo
+                </div>
+            </div>
+
+            <div class="quick">
+                <div class="quick-icon">🔥</div>
+                <div class="quick-title">
+                    Racha
+                </div>
+            </div>
+
+            <div class="quick">
+                <div class="quick-icon">🎯</div>
+                <div class="quick-title">
+                    Precisión
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= BOTTOM NAV ================= -->
 
 <div class="bottom">
 
-    <div class="nav">
+    <div class="nav active"
+         onclick="navigate('homePage',this)">
+
         <span class="nav-icon">🏠</span>
         Inicio
+
     </div>
 
-    <div class="nav">
+
+    <div class="nav"
+         onclick="navigate('rankingPage',this)">
+
         <span class="nav-icon">🏆</span>
         Ranking
+
     </div>
 
-    <div class="nav">
+
+    <div class="nav"
+         onclick="navigate('friendsPage',this)">
+
         <span class="nav-icon">👥</span>
         Amigos
+
     </div>
 
-    <div class="nav">
+
+    <div class="nav"
+         onclick="navigate('profilePage',this)">
+
         <span class="nav-icon">👤</span>
         Perfil
+
     </div>
 
 </div>
 
+
+<div id="toast" class="toast"></div>
+
+</div>
+
+
 <script>
 
-    const tg = window.Telegram.WebApp;
+const tg = window.Telegram.WebApp;
 
-    tg.ready();
-    tg.expand();
+tg.ready();
+tg.expand();
 
-    const user = tg.initDataUnsafe?.user;
 
-    if (user) {
-        document.getElementById("username").innerText =
-            user.first_name || "Jugador";
-    }
+/* TELEGRAM USER */
 
-    function play() {
-        tg.showAlert("🎮 El sistema de partidas estará disponible próximamente.");
-    }
+const telegramUser = tg.initDataUnsafe?.user;
 
-    function game(name) {
-        tg.showAlert("🎮 Este juego será añadido próximamente.");
-    }
+if (telegramUser) {
+
+    const name =
+        telegramUser.first_name ||
+        telegramUser.username ||
+        "Jugador";
+
+    document.getElementById("username")
+        .innerText = name;
+
+    document.getElementById("profileName")
+        .innerText = name;
+
+}
+
+
+/* NAVEGACIÓN */
+
+function navigate(pageId, element) {
+
+    document.querySelectorAll(".page")
+        .forEach(page => {
+            page.classList.remove("active");
+        });
+
+    document.getElementById(pageId)
+        .classList.add("active");
+
+    document.querySelectorAll(".nav")
+        .forEach(nav => {
+            nav.classList.remove("active");
+        });
+
+    element.classList.add("active");
+
+    window.scrollTo(0,0);
+}
+
+
+/* MENSAJES */
+
+function showMessage(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.innerText = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2200);
+
+}
+
+
+/* JUEGO */
+
+function openGame(icon, name) {
+
+    showMessage(
+        icon + " " + name +
+        " estará disponible próximamente"
+    );
+
+}
+
+
+/* RETAR */
+
+function challenge(name) {
+
+    showMessage(
+        "⚔️ Has retado a " + name
+    );
+
+}
+
+
+/* BOTÓN TELEGRAM */
+
+try {
+
+    tg.BackButton.onClick(() => {
+
+        tg.BackButton.hide();
+
+    });
+
+} catch(e) {}
 
 </script>
 
 </body>
-</html>
+        </html>
