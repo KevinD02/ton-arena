@@ -8,7 +8,7 @@
 
 <title>TON Arena</title>
 
-<!-- Fuente Inter desde Google Fonts -->
+<!-- Fuente Inter -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -16,8 +16,15 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-/* ===== VARIABLES BASE (dependen del tema oscuro/claro) ===== */
-:root {
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ============================================================
+   PALETA TON (por defecto)
+   ============================================================ */
+body {
     --bg-primary: #070b14;
     --bg-card: rgba(255, 255, 255, 0.04);
     --bg-card-solid: #1a1f2a;
@@ -31,9 +38,17 @@
     --shadow-3d: #0a0d14;
     --glass-bg: rgba(255, 255, 255, 0.04);
     --toggle-bg: #3a4050;
+    --color-accent: #4db5e8;
+    --gradient-brand: linear-gradient(135deg, #0098ea, #00c7f2);
+    --gradient-progress: linear-gradient(90deg, #0098ea, #00c7f2);
+    --toggle-active: #0098ea;
+    --border-active: #285e7e;
+    --border-active-light: #0077be;
 }
 
-/* ===== TEMA CLARO ===== */
+/* ============================================================
+   PALETA TON (MODO CLARO)
+   ============================================================ */
 body.light-theme {
     --bg-primary: #f0f2f6;
     --bg-card: rgba(255, 255, 255, 0.8);
@@ -50,30 +65,91 @@ body.light-theme {
     --toggle-bg: #c0c8d4;
 }
 
-/* ===== PALETAS DE COLOR (se aplican sobre las variables base) ===== */
-/* TON (por defecto) */
-:root {
-    --color-accent: #4db5e8;
-    --gradient-brand: linear-gradient(135deg, #0098ea, #00c7f2);
-    --gradient-progress: linear-gradient(90deg, #0098ea, #00c7f2);
-    --toggle-active: #0098ea;
-    --border-active: #285e7e;
-    --border-active-light: #0077be;
-}
-
-/* Púrpura */
+/* ============================================================
+   PALETA PÚRPURA
+   ============================================================ */
 body.palette-purple {
-    --color-accent: #b47aea;
+    --bg-primary: #11071a;
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --bg-card-solid: #1d0f2b;
+    --bg-elevated: #1a0d26;
+    --bg-input: #26153b;
+    --border-color: #3b1f5e;
+    --border-light: rgba(196, 132, 252, 0.15);
+    --text-primary: #f3e8ff;
+    --text-secondary: #b59fd6;
+    --text-muted: #8a75a6;
+    --shadow-3d: #0a0310;
+    --glass-bg: rgba(196, 132, 252, 0.05);
+    --toggle-bg: #3a1f5e;
+    --color-accent: #c084fc;
     --gradient-brand: linear-gradient(135deg, #7c3aed, #a855f7);
     --gradient-progress: linear-gradient(90deg, #7c3aed, #a855f7);
     --toggle-active: #7c3aed;
-    --border-active: #5b21b6;
+    --border-active: #6d28d9;
+    --border-active-light: #7c3aed;
+}
+body.light-theme.palette-purple {
+    --bg-primary: #f8f0ff;
+    --bg-card: rgba(124, 58, 237, 0.08);
+    --bg-card-solid: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-input: #ede3ff;
+    --border-color: #d9c4f0;
+    --border-light: rgba(124, 58, 237, 0.12);
+    --text-primary: #2d1b4a;
+    --text-secondary: #6b4f8a;
+    --text-muted: #9a82b5;
+    --shadow-3d: #c4b0d4;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --toggle-bg: #d4c0e8;
+    --color-accent: #7c3aed;
+    --gradient-brand: linear-gradient(135deg, #7c3aed, #a855f7);
+    --gradient-progress: linear-gradient(90deg, #7c3aed, #a855f7);
+    --toggle-active: #7c3aed;
+    --border-active: #6d28d9;
     --border-active-light: #7c3aed;
 }
 
-/* Verde esmeralda */
+/* ============================================================
+   PALETA VERDE
+   ============================================================ */
 body.palette-green {
-    --color-accent: #4ade80;
+    --bg-primary: #07140b;
+    --bg-card: rgba(255, 255, 255, 0.04);
+    --bg-card-solid: #112418;
+    --bg-elevated: #0e1f15;
+    --bg-input: #183026;
+    --border-color: #1a4a33;
+    --border-light: rgba(52, 211, 153, 0.12);
+    --text-primary: #ecfdf5;
+    --text-secondary: #8bc4a8;
+    --text-muted: #6a9c82;
+    --shadow-3d: #040c08;
+    --glass-bg: rgba(52, 211, 153, 0.04);
+    --toggle-bg: #1a4a33;
+    --color-accent: #34d399;
+    --gradient-brand: linear-gradient(135deg, #059669, #34d399);
+    --gradient-progress: linear-gradient(90deg, #059669, #34d399);
+    --toggle-active: #059669;
+    --border-active: #065f46;
+    --border-active-light: #059669;
+}
+body.light-theme.palette-green {
+    --bg-primary: #f0faf5;
+    --bg-card: rgba(5, 150, 105, 0.06);
+    --bg-card-solid: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-input: #e4f5ed;
+    --border-color: #b8d9cc;
+    --border-light: rgba(5, 150, 105, 0.10);
+    --text-primary: #0a2e20;
+    --text-secondary: #3a7a62;
+    --text-muted: #7aa694;
+    --shadow-3d: #b8d0c6;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --toggle-bg: #b8d9cc;
+    --color-accent: #059669;
     --gradient-brand: linear-gradient(135deg, #059669, #34d399);
     --gradient-progress: linear-gradient(90deg, #059669, #34d399);
     --toggle-active: #059669;
@@ -81,8 +157,23 @@ body.palette-green {
     --border-active-light: #059669;
 }
 
-/* Naranja */
+/* ============================================================
+   PALETA NARANJA
+   ============================================================ */
 body.palette-orange {
+    --bg-primary: #140b07;
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --bg-card-solid: #261710;
+    --bg-elevated: #1f130d;
+    --bg-input: #33221a;
+    --border-color: #4a2e12;
+    --border-light: rgba(251, 146, 60, 0.15);
+    --text-primary: #fff7ed;
+    --text-secondary: #d4a882;
+    --text-muted: #a88766;
+    --shadow-3d: #0a0502;
+    --glass-bg: rgba(251, 146, 60, 0.05);
+    --toggle-bg: #4a2e12;
     --color-accent: #fb923c;
     --gradient-brand: linear-gradient(135deg, #ea580c, #f97316);
     --gradient-progress: linear-gradient(90deg, #ea580c, #f97316);
@@ -90,9 +181,45 @@ body.palette-orange {
     --border-active: #9a3412;
     --border-active-light: #ea580c;
 }
+body.light-theme.palette-orange {
+    --bg-primary: #fff8f0;
+    --bg-card: rgba(234, 88, 12, 0.06);
+    --bg-card-solid: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-input: #ffede0;
+    --border-color: #f0d4c4;
+    --border-light: rgba(234, 88, 12, 0.10);
+    --text-primary: #3d1f0a;
+    --text-secondary: #8a6040;
+    --text-muted: #b89478;
+    --shadow-3d: #d4c0b4;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --toggle-bg: #f0d4c4;
+    --color-accent: #ea580c;
+    --gradient-brand: linear-gradient(135deg, #ea580c, #f97316);
+    --gradient-progress: linear-gradient(90deg, #ea580c, #f97316);
+    --toggle-active: #ea580c;
+    --border-active: #9a3412;
+    --border-active-light: #ea580c;
+}
 
-/* Rosa */
+/* ============================================================
+   PALETA ROSA
+   ============================================================ */
 body.palette-pink {
+    --bg-primary: #140712;
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --bg-card-solid: #26101e;
+    --bg-elevated: #1f0d18;
+    --bg-input: #331a26;
+    --border-color: #4a1a35;
+    --border-light: rgba(244, 114, 182, 0.15);
+    --text-primary: #fdf2f8;
+    --text-secondary: #d48fb0;
+    --text-muted: #a86e8c;
+    --shadow-3d: #0a0408;
+    --glass-bg: rgba(244, 114, 182, 0.05);
+    --toggle-bg: #4a1a35;
     --color-accent: #f472b6;
     --gradient-brand: linear-gradient(135deg, #db2777, #ec4899);
     --gradient-progress: linear-gradient(90deg, #db2777, #ec4899);
@@ -100,9 +227,45 @@ body.palette-pink {
     --border-active: #9d174d;
     --border-active-light: #db2777;
 }
+body.light-theme.palette-pink {
+    --bg-primary: #fff0f6;
+    --bg-card: rgba(219, 39, 119, 0.06);
+    --bg-card-solid: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-input: #ffe4ef;
+    --border-color: #f0c4d4;
+    --border-light: rgba(219, 39, 119, 0.10);
+    --text-primary: #4a1a30;
+    --text-secondary: #8a4a6a;
+    --text-muted: #b87a9a;
+    --shadow-3d: #d4b4c4;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --toggle-bg: #f0c4d4;
+    --color-accent: #db2777;
+    --gradient-brand: linear-gradient(135deg, #db2777, #ec4899);
+    --gradient-progress: linear-gradient(90deg, #db2777, #ec4899);
+    --toggle-active: #db2777;
+    --border-active: #9d174d;
+    --border-active-light: #db2777;
+}
 
-/* Dorado */
+/* ============================================================
+   PALETA DORADO
+   ============================================================ */
 body.palette-gold {
+    --bg-primary: #141007;
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --bg-card-solid: #261f10;
+    --bg-elevated: #1f180d;
+    --bg-input: #332a1a;
+    --border-color: #4a3b12;
+    --border-light: rgba(251, 191, 36, 0.15);
+    --text-primary: #fffbeb;
+    --text-secondary: #d4c082;
+    --text-muted: #a89a66;
+    --shadow-3d: #0a0802;
+    --glass-bg: rgba(251, 191, 36, 0.05);
+    --toggle-bg: #4a3b12;
     --color-accent: #fbbf24;
     --gradient-brand: linear-gradient(135deg, #d97706, #f59e0b);
     --gradient-progress: linear-gradient(90deg, #d97706, #f59e0b);
@@ -110,19 +273,37 @@ body.palette-gold {
     --border-active: #b45309;
     --border-active-light: #d97706;
 }
-
-/* ===== RESET Y BASE ===== */
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+body.light-theme.palette-gold {
+    --bg-primary: #fffcf0;
+    --bg-card: rgba(217, 119, 6, 0.06);
+    --bg-card-solid: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-input: #fff4e0;
+    --border-color: #f0e0c4;
+    --border-light: rgba(217, 119, 6, 0.10);
+    --text-primary: #3d2e0a;
+    --text-secondary: #8a7640;
+    --text-muted: #b8a47a;
+    --shadow-3d: #d4c8b4;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --toggle-bg: #f0e0c4;
+    --color-accent: #d97706;
+    --gradient-brand: linear-gradient(135deg, #d97706, #f59e0b);
+    --gradient-progress: linear-gradient(90deg, #d97706, #f59e0b);
+    --toggle-active: #d97706;
+    --border-active: #b45309;
+    --border-active-light: #d97706;
 }
 
+/* ============================================================
+   RESET Y BASE
+   ============================================================ */
 body {
     margin: 0;
     background: var(--bg-primary);
     color: var(--text-primary);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    transition: background 0.25s ease, color 0.25s ease;
+    transition: background 0.25s ease, color 0.25s ease, border 0.25s ease;
 }
 
 button {
@@ -353,14 +534,10 @@ button {
     position: relative;
     overflow: hidden;
     border: 1px solid var(--border-color);
-    background: linear-gradient(145deg, #202838, #171c26);
+    background: var(--bg-elevated);
     box-shadow: 0 8px 0 var(--shadow-3d);
     transition: all 0.08s ease;
     cursor: pointer;
-}
-
-body.light-theme .game {
-    background: linear-gradient(145deg, #f5f7fa, #e8ebf0);
 }
 
 .game:active {
@@ -396,7 +573,7 @@ body.light-theme .game {
     position: absolute;
     right: 14px;
     bottom: 10px;
-    color: #687386;
+    color: var(--text-muted);
 }
 
 /* ===== CATEGORIES ===== */
@@ -426,12 +603,6 @@ body.light-theme .game {
     background: var(--border-active);
     color: var(--color-accent);
     border-color: var(--border-active);
-}
-
-body.light-theme .category.active {
-    background: #d4e6f7;
-    color: var(--border-active-light);
-    border-color: var(--border-active-light);
 }
 
 /* ===== ACTIVITY ===== */
@@ -690,12 +861,6 @@ body.light-theme .category.active {
     box-shadow: 0 1px 0 var(--shadow-3d);
 }
 
-body.light-theme .challenge {
-    background: #d4e6f7;
-    color: var(--border-active-light);
-    box-shadow: 0 4px 0 #b0c4d8;
-}
-
 /* ===== SETTINGS MODAL ===== */
 .settings-overlay {
     position: fixed;
@@ -815,13 +980,6 @@ body.light-theme .challenge {
     box-shadow: 0 2px 0 var(--toggle-active);
 }
 
-body.light-theme .lang-btn.active {
-    background: rgba(0, 119, 190, 0.12);
-    border-color: var(--border-active-light);
-    color: var(--border-active-light);
-    box-shadow: 0 2px 0 var(--border-active-light);
-}
-
 /* ===== SELECTOR DE PALETAS (botones circulares) ===== */
 .palette-group {
     display: flex;
@@ -867,7 +1025,7 @@ body.light-theme .lang-btn.active {
     opacity: 1;
 }
 
-/* Colores de cada paleta (gradiente radial para muestra) */
+/* Colores de cada paleta (muestra) */
 .palette-btn[data-palette="ton"] {
     background: radial-gradient(circle at 30% 30%, #0098ea, #00c7f2);
 }
@@ -1291,7 +1449,7 @@ body.light-theme .lang-btn.active {
 <script>
 
 // ============================================================
-//  TRADUCCIONES (8 IDIOMAS)
+//  TRADUCCIONES (8 IDIOMAS) - MISMO CÓDIGO QUE ANTES
 // ============================================================
 const translations = {
     es: {
@@ -1514,7 +1672,6 @@ function applyLanguage(lang) {
             el.innerText = translations[lang][key];
         }
     });
-    // Actualizar botones de idioma
     document.querySelectorAll('.lang-btn').forEach(btn => {
         const langCode = btn.id.replace('lang', '').toLowerCase();
         btn.classList.toggle('active', langCode === currentLang);
@@ -1545,7 +1702,7 @@ function toggleTheme() {
 }
 
 // ============================================================
-//  APLICAR PALETA
+//  APLICAR PALETA (SOLO AÑADE/QUITA CLASES)
 // ============================================================
 function applyPalette(palette) {
     currentPalette = palette;
@@ -1666,4 +1823,4 @@ document.getElementById('notifToggle').classList.toggle('active', notifEnabled);
 </script>
 
 </body>
-      </html>
+                                                                                </html>
