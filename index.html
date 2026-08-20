@@ -16,7 +16,7 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-/* ===== VARIABLES (Tema Oscuro por defecto) ===== */
+/* ===== VARIABLES BASE (dependen del tema oscuro/claro) ===== */
 :root {
     --bg-primary: #070b14;
     --bg-card: rgba(255, 255, 255, 0.04);
@@ -28,11 +28,9 @@
     --text-primary: #ffffff;
     --text-secondary: #858b99;
     --text-muted: #747c8c;
-    --text-accent: #4db5e8;
     --shadow-3d: #0a0d14;
-    --gradient-brand: linear-gradient(135deg, #0098ea, #00c7f2);
-    --gradient-progress: linear-gradient(90deg, #0098ea, #00c7f2);
     --glass-bg: rgba(255, 255, 255, 0.04);
+    --toggle-bg: #3a4050;
 }
 
 /* ===== TEMA CLARO ===== */
@@ -47,11 +45,70 @@ body.light-theme {
     --text-primary: #1a1f2a;
     --text-secondary: #5a6270;
     --text-muted: #8a92a0;
-    --text-accent: #0077be;
     --shadow-3d: #b0b8c4;
-    --gradient-brand: linear-gradient(135deg, #0077be, #00a3d6);
-    --gradient-progress: linear-gradient(90deg, #0077be, #00a3d6);
     --glass-bg: rgba(255, 255, 255, 0.7);
+    --toggle-bg: #c0c8d4;
+}
+
+/* ===== PALETAS DE COLOR (se aplican sobre las variables base) ===== */
+/* TON (por defecto) */
+:root {
+    --color-accent: #4db5e8;
+    --gradient-brand: linear-gradient(135deg, #0098ea, #00c7f2);
+    --gradient-progress: linear-gradient(90deg, #0098ea, #00c7f2);
+    --toggle-active: #0098ea;
+    --border-active: #285e7e;
+    --border-active-light: #0077be;
+}
+
+/* Púrpura */
+body.palette-purple {
+    --color-accent: #b47aea;
+    --gradient-brand: linear-gradient(135deg, #7c3aed, #a855f7);
+    --gradient-progress: linear-gradient(90deg, #7c3aed, #a855f7);
+    --toggle-active: #7c3aed;
+    --border-active: #5b21b6;
+    --border-active-light: #7c3aed;
+}
+
+/* Verde esmeralda */
+body.palette-green {
+    --color-accent: #4ade80;
+    --gradient-brand: linear-gradient(135deg, #059669, #34d399);
+    --gradient-progress: linear-gradient(90deg, #059669, #34d399);
+    --toggle-active: #059669;
+    --border-active: #065f46;
+    --border-active-light: #059669;
+}
+
+/* Naranja */
+body.palette-orange {
+    --color-accent: #fb923c;
+    --gradient-brand: linear-gradient(135deg, #ea580c, #f97316);
+    --gradient-progress: linear-gradient(90deg, #ea580c, #f97316);
+    --toggle-active: #ea580c;
+    --border-active: #9a3412;
+    --border-active-light: #ea580c;
+}
+
+/* Rosa */
+body.palette-pink {
+    --color-accent: #f472b6;
+    --gradient-brand: linear-gradient(135deg, #db2777, #ec4899);
+    --gradient-progress: linear-gradient(90deg, #db2777, #ec4899);
+    --toggle-active: #db2777;
+    --border-active: #9d174d;
+    --border-active-light: #db2777;
+}
+
+/* Dorado */
+body.palette-gold {
+    --color-accent: #fbbf24;
+    --gradient-brand: linear-gradient(135deg, #d97706, #f59e0b);
+    --gradient-progress: linear-gradient(90deg, #d97706, #f59e0b);
+    --toggle-active: #d97706;
+    --border-active: #b45309;
+    --border-active-light: #d97706;
 }
 
 /* ===== RESET Y BASE ===== */
@@ -244,7 +301,7 @@ button {
 }
 
 .see-all {
-    color: var(--text-accent);
+    color: var(--color-accent);
     font-size: 12px;
     cursor: pointer;
 }
@@ -366,15 +423,15 @@ body.light-theme .game {
 }
 
 .category.active {
-    background: #203d52;
-    color: #52bce9;
-    border-color: #285e7e;
+    background: var(--border-active);
+    color: var(--color-accent);
+    border-color: var(--border-active);
 }
 
 body.light-theme .category.active {
     background: #d4e6f7;
-    color: #0077be;
-    border-color: #0077be;
+    color: var(--border-active-light);
+    border-color: var(--border-active-light);
 }
 
 /* ===== ACTIVITY ===== */
@@ -460,7 +517,7 @@ body.light-theme .category.active {
 }
 
 .nav.active {
-    color: var(--text-accent);
+    color: var(--color-accent);
 }
 
 /* ===== PAGES ===== */
@@ -616,26 +673,26 @@ body.light-theme .category.active {
 }
 
 .challenge {
-    background: #203d52;
+    background: var(--border-active);
     border: 0;
-    color: #5bc2ef;
+    color: var(--color-accent);
     border-radius: 12px;
     padding: 8px 10px;
     font-size: 10px;
     font-weight: bold;
-    box-shadow: 0 4px 0 #0f1f2b;
+    box-shadow: 0 4px 0 var(--shadow-3d);
     transition: all 0.08s ease;
     cursor: pointer;
 }
 
 .challenge:active {
     transform: scale(0.95);
-    box-shadow: 0 1px 0 #0f1f2b;
+    box-shadow: 0 1px 0 var(--shadow-3d);
 }
 
 body.light-theme .challenge {
     background: #d4e6f7;
-    color: #0077be;
+    color: var(--border-active-light);
     box-shadow: 0 4px 0 #b0c4d8;
 }
 
@@ -752,24 +809,89 @@ body.light-theme .challenge {
 }
 
 .lang-btn.active {
-    border-color: #0098ea;
+    border-color: var(--toggle-active);
     background: rgba(0, 152, 234, 0.15);
-    color: #0098ea;
-    box-shadow: 0 2px 0 #0098ea;
+    color: var(--toggle-active);
+    box-shadow: 0 2px 0 var(--toggle-active);
 }
 
 body.light-theme .lang-btn.active {
     background: rgba(0, 119, 190, 0.12);
-    border-color: #0077be;
-    color: #0077be;
-    box-shadow: 0 2px 0 #0077be;
+    border-color: var(--border-active-light);
+    color: var(--border-active-light);
+    box-shadow: 0 2px 0 var(--border-active-light);
+}
+
+/* ===== SELECTOR DE PALETAS (botones circulares) ===== */
+.palette-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 4px 0;
+}
+
+.palette-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 3px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    box-shadow: 0 4px 0 var(--shadow-3d);
+}
+
+.palette-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 1px 0 var(--shadow-3d);
+}
+
+.palette-btn.active {
+    border-color: var(--color-accent);
+    transform: scale(1.08);
+    box-shadow: 0 4px 0 var(--color-accent), 0 0 12px rgba(0,152,234,0.3);
+}
+
+.palette-btn .check {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.palette-btn.active .check {
+    opacity: 1;
+}
+
+/* Colores de cada paleta (gradiente radial para muestra) */
+.palette-btn[data-palette="ton"] {
+    background: radial-gradient(circle at 30% 30%, #0098ea, #00c7f2);
+}
+.palette-btn[data-palette="purple"] {
+    background: radial-gradient(circle at 30% 30%, #7c3aed, #a855f7);
+}
+.palette-btn[data-palette="green"] {
+    background: radial-gradient(circle at 30% 30%, #059669, #34d399);
+}
+.palette-btn[data-palette="orange"] {
+    background: radial-gradient(circle at 30% 30%, #ea580c, #f97316);
+}
+.palette-btn[data-palette="pink"] {
+    background: radial-gradient(circle at 30% 30%, #db2777, #ec4899);
+}
+.palette-btn[data-palette="gold"] {
+    background: radial-gradient(circle at 30% 30%, #d97706, #f59e0b);
 }
 
 /* Toggle Switch */
 .toggle {
     width: 48px;
     height: 28px;
-    background: #3a4050;
+    background: var(--toggle-bg);
     border-radius: 20px;
     position: relative;
     cursor: pointer;
@@ -777,12 +899,8 @@ body.light-theme .lang-btn.active {
     flex-shrink: 0;
 }
 
-body.light-theme .toggle {
-    background: #c0c8d4;
-}
-
 .toggle.active {
-    background: #0098ea;
+    background: var(--toggle-active);
 }
 
 .toggle::after {
@@ -839,6 +957,13 @@ body.light-theme .toggle {
     }
     .lang-group {
         grid-template-columns: repeat(3, 1fr);
+    }
+    .palette-group {
+        gap: 8px;
+    }
+    .palette-btn {
+        width: 38px;
+        height: 38px;
     }
 }
 </style>
@@ -1036,7 +1161,6 @@ body.light-theme .toggle {
 </div>
 
 <!-- ================= PROFILE ================= -->
-<!-- ELIMINADO EL BOTÓN ⚙️ DE AQUÍ -->
 <div id="profilePage" class="page">
     <div class="header">
         <div>
@@ -1110,6 +1234,31 @@ body.light-theme .toggle {
             </div>
         </div>
 
+        <!-- Paleta de color -->
+        <div class="settings-group">
+            <div class="settings-group-label" data-i18n="palette">Paleta de color</div>
+            <div class="palette-group">
+                <button class="palette-btn active" data-palette="ton" onclick="setPalette('ton')">
+                    <span class="check">✓</span>
+                </button>
+                <button class="palette-btn" data-palette="purple" onclick="setPalette('purple')">
+                    <span class="check">✓</span>
+                </button>
+                <button class="palette-btn" data-palette="green" onclick="setPalette('green')">
+                    <span class="check">✓</span>
+                </button>
+                <button class="palette-btn" data-palette="orange" onclick="setPalette('orange')">
+                    <span class="check">✓</span>
+                </button>
+                <button class="palette-btn" data-palette="pink" onclick="setPalette('pink')">
+                    <span class="check">✓</span>
+                </button>
+                <button class="palette-btn" data-palette="gold" onclick="setPalette('gold')">
+                    <span class="check">✓</span>
+                </button>
+            </div>
+        </div>
+
         <!-- Sonido -->
         <div class="settings-group">
             <div class="settings-group-label" data-i18n="sound">Sonido</div>
@@ -1162,6 +1311,7 @@ const translations = {
         streak: 'Racha', precision: 'Precisión',
         nav_home: 'Inicio', nav_ranking: 'Ranking', nav_friends: 'Amigos', nav_profile: 'Perfil',
         settings_title: '⚙️ Ajustes', language: 'Idioma', theme: 'Tema',
+        palette: 'Paleta de color',
         dark_mode: 'Modo oscuro', sound: 'Sonido', sound_effects: 'Efectos de sonido',
         notifications: 'Notificaciones', push_notifications: 'Notificaciones push',
         close: 'Cerrar', coming_soon: 'Próximamente',
@@ -1186,6 +1336,7 @@ const translations = {
         streak: 'Streak', precision: 'Precision',
         nav_home: 'Home', nav_ranking: 'Ranking', nav_friends: 'Friends', nav_profile: 'Profile',
         settings_title: '⚙️ Settings', language: 'Language', theme: 'Theme',
+        palette: 'Color palette',
         dark_mode: 'Dark mode', sound: 'Sound', sound_effects: 'Sound effects',
         notifications: 'Notifications', push_notifications: 'Push notifications',
         close: 'Close', coming_soon: 'Coming soon',
@@ -1210,6 +1361,7 @@ const translations = {
         streak: 'Série', precision: 'Précision',
         nav_home: 'Accueil', nav_ranking: 'Classement', nav_friends: 'Amis', nav_profile: 'Profil',
         settings_title: '⚙️ Paramètres', language: 'Langue', theme: 'Thème',
+        palette: 'Palette de couleurs',
         dark_mode: 'Mode sombre', sound: 'Son', sound_effects: 'Effets sonores',
         notifications: 'Notifications', push_notifications: 'Notifications push',
         close: 'Fermer', coming_soon: 'Bientôt disponible',
@@ -1234,6 +1386,7 @@ const translations = {
         streak: 'Serie', precision: 'Präzision',
         nav_home: 'Startseite', nav_ranking: 'Rangliste', nav_friends: 'Freunde', nav_profile: 'Profil',
         settings_title: '⚙️ Einstellungen', language: 'Sprache', theme: 'Thema',
+        palette: 'Farbpalette',
         dark_mode: 'Dunkelmodus', sound: 'Sound', sound_effects: 'Soundeffekte',
         notifications: 'Benachrichtigungen', push_notifications: 'Push-Benachrichtigungen',
         close: 'Schließen', coming_soon: 'Demnächst verfügbar',
@@ -1258,6 +1411,7 @@ const translations = {
         streak: 'Sequência', precision: 'Precisão',
         nav_home: 'Início', nav_ranking: 'Ranking', nav_friends: 'Amigos', nav_profile: 'Perfil',
         settings_title: '⚙️ Configurações', language: 'Idioma', theme: 'Tema',
+        palette: 'Paleta de cores',
         dark_mode: 'Modo escuro', sound: 'Som', sound_effects: 'Efeitos sonoros',
         notifications: 'Notificações', push_notifications: 'Notificações push',
         close: 'Fechar', coming_soon: 'Em breve',
@@ -1282,6 +1436,7 @@ const translations = {
         streak: 'Серия', precision: 'Точность',
         nav_home: 'Главная', nav_ranking: 'Рейтинг', nav_friends: 'Друзья', nav_profile: 'Профиль',
         settings_title: '⚙️ Настройки', language: 'Язык', theme: 'Тема',
+        palette: 'Цветовая палитра',
         dark_mode: 'Тёмный режим', sound: 'Звук', sound_effects: 'Звуковые эффекты',
         notifications: 'Уведомления', push_notifications: 'Push-уведомления',
         close: 'Закрыть', coming_soon: 'Скоро появится',
@@ -1306,6 +1461,7 @@ const translations = {
         streak: '连胜', precision: '精准',
         nav_home: '首页', nav_ranking: '排行榜', nav_friends: '好友', nav_profile: '档案',
         settings_title: '⚙️ 设置', language: '语言', theme: '主题',
+        palette: '调色板',
         dark_mode: '深色模式', sound: '音效', sound_effects: '音效',
         notifications: '通知', push_notifications: '推送通知',
         close: '关闭', coming_soon: '即将上线',
@@ -1330,6 +1486,7 @@ const translations = {
         streak: '連勝', precision: '精度',
         nav_home: 'ホーム', nav_ranking: 'ランキング', nav_friends: '友達', nav_profile: 'プロフィール',
         settings_title: '⚙️ 設定', language: '言語', theme: 'テーマ',
+        palette: 'カラーパレット',
         dark_mode: 'ダークモード', sound: 'サウンド', sound_effects: '効果音',
         notifications: '通知', push_notifications: 'プッシュ通知',
         close: '閉じる', coming_soon: '近日公開',
@@ -1341,6 +1498,7 @@ const translations = {
 
 let currentLang = localStorage.getItem('lang') || 'es';
 let currentTheme = localStorage.getItem('theme') || 'dark';
+let currentPalette = localStorage.getItem('palette') || 'ton';
 let soundEnabled = localStorage.getItem('sound') !== 'off';
 let notifEnabled = localStorage.getItem('notifications') !== 'off';
 
@@ -1387,6 +1545,33 @@ function toggleTheme() {
 }
 
 // ============================================================
+//  APLICAR PALETA
+// ============================================================
+function applyPalette(palette) {
+    currentPalette = palette;
+    localStorage.setItem('palette', palette);
+    // Remover todas las clases de paleta
+    document.body.className = document.body.className
+        .split(' ')
+        .filter(c => !c.startsWith('palette-'))
+        .join(' ');
+    if (palette !== 'ton') {
+        document.body.classList.add('palette-' + palette);
+    }
+    // Actualizar botones activos
+    document.querySelectorAll('.palette-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.palette === palette);
+    });
+}
+
+function setPalette(palette) {
+    applyPalette(palette);
+    const names = { ton: 'TON', purple: 'Púrpura', green: 'Verde', orange: 'Naranja', pink: 'Rosa', gold: 'Dorado' };
+    showMessage('🎨 ' + names[palette] + ' seleccionada');
+    closeSettings();
+}
+
+// ============================================================
 //  SONIDO Y NOTIFICACIONES
 // ============================================================
 function toggleSound() {
@@ -1414,6 +1599,9 @@ function openSettings() {
     document.querySelectorAll('.lang-btn').forEach(btn => {
         const langCode = btn.id.replace('lang', '').toLowerCase();
         btn.classList.toggle('active', langCode === currentLang);
+    });
+    document.querySelectorAll('.palette-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.palette === currentPalette);
     });
 }
 
@@ -1471,6 +1659,7 @@ try {
 // ============================================================
 applyLanguage(currentLang);
 applyTheme(currentTheme);
+applyPalette(currentPalette);
 document.getElementById('soundToggle').classList.toggle('active', soundEnabled);
 document.getElementById('notifToggle').classList.toggle('active', notifEnabled);
 
