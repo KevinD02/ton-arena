@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TON Arena</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111827;
+            color: white;
+        }
+
+        .app {
+            max-width: 600px;
+            margin: auto;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            padding: 25px 20px 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            margin-top: 5px;
+        }
+
+        .profile {
+            margin: 10px 20px;
+            padding: 18px;
+            background: #1f2937;
+            border-radius: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            background: #374151;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .balance {
+            text-align: right;
+        }
+
+        .coins {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .balance-title {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .play-button {
+            margin: 20px;
+            width: calc(100% - 40px);
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            background: #229ed9;
+            color: white;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            padding: 10px 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .games {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .game {
+            background: #1f2937;
+            border-radius: 18px;
+            padding: 22px 12px;
+            text-align: center;
+            border: 1px solid #374151;
+        }
+
+        .game-icon {
+            font-size: 42px;
+        }
+
+        .game-name {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .game-status {
+            margin-top: 5px;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 600px;
+            margin: auto;
+            height: 65px;
+            background: #111827;
+            border-top: 1px solid #374151;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <div class="logo">🏆 TON Arena</div>
+        <div class="subtitle">Compite. Gana. Domina.</div>
+    </div>
+
+    <div class="profile">
+
+        <div class="user">
+            <div class="avatar">👤</div>
+
+            <div>
+                <div id="username">Jugador</div>
+                <div class="balance-title">Nivel 1</div>
+            </div>
+        </div>
+
+        <div class="balance">
+            <div class="balance-title">Saldo</div>
+            <div class="coins">🪙 1,000</div>
+        </div>
+
+    </div>
+
+    <button class="play-button" onclick="play()">
+        🎮 JUGAR AHORA
+    </button>
+
+    <div class="section-title">
+        🎮 Juegos
+    </div>
+
+    <div class="games">
+
+        <div class="game" onclick="game('pool')">
+            <div class="game-icon">🎱</div>
+            <div class="game-name">Billar</div>
+            <div class="game-status">Próximamente</div>
+        </div>
+
+        <div class="game" onclick="game('connect4')">
+            <div class="game-icon">🔴</div>
+            <div class="game-name">4 en línea</div>
+            <div class="game-status">Próximamente</div>
+        </div>
+
+        <div class="game" onclick="game('chess')">
+            <div class="game-icon">♟️</div>
+            <div class="game-name">Ajedrez</div>
+            <div class="game-status">Próximamente</div>
+        </div>
+
+        <div class="game" onclick="game('cards')">
+            <div class="game-icon">🃏</div>
+            <div class="game-name">Cartas</div>
+            <div class="game-status">Próximamente</div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="bottom">
+
+    <div class="nav">
+        <span class="nav-icon">🏠</span>
+        Inicio
+    </div>
+
+    <div class="nav">
+        <span class="nav-icon">🏆</span>
+        Ranking
+    </div>
+
+    <div class="nav">
+        <span class="nav-icon">👥</span>
+        Amigos
+    </div>
+
+    <div class="nav">
+        <span class="nav-icon">👤</span>
+        Perfil
+    </div>
+
+</div>
+
+<script>
+
+    const tg = window.Telegram.WebApp;
+
+    tg.ready();
+    tg.expand();
+
+    const user = tg.initDataUnsafe?.user;
+
+    if (user) {
+        document.getElementById("username").innerText =
+            user.first_name || "Jugador";
+    }
+
+    function play() {
+        tg.showAlert("🎮 El sistema de partidas estará disponible próximamente.");
+    }
+
+    function game(name) {
+        tg.showAlert("🎮 Este juego será añadido próximamente.");
+    }
+
+</script>
+
+</body>
+</html>
